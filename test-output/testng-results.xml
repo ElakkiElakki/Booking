@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-04-21T11:29:06 IST" name="Default suite" finished-at="2026-04-21T11:30:54 IST" duration-ms="107330">
+    <groups>
+      <group name="cucumber">
+        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@2f54a33d]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
+      </group> <!-- cucumber -->
+    </groups>
+    <test started-at="2026-04-21T11:29:06 IST" name="Default test" finished-at="2026-04-21T11:30:54 IST" duration-ms="107330">
+      <class name="testRunner.TestRunnerIO">
+        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:testRunner.TestRunnerIO@2f54a33d]" started-at="2026-04-21T11:29:06 IST" name="setUpClass" finished-at="2026-04-21T11:29:07 IST" duration-ms="476" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[org.testng.TestRunner@3bb9ca38]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpClass -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@2f54a33d]" started-at="2026-04-21T11:29:07 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-21T11:30:53 IST" duration-ms="106799" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Open Booking homepage and validate successful launch"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Booking Home Page Validation"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:testRunner.TestRunnerIO@2f54a33d]" started-at="2026-04-21T11:30:53 IST" name="tearDownClass" finished-at="2026-04-21T11:30:54 IST" duration-ms="19" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownClass -->
+      </class> <!-- testRunner.TestRunnerIO -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

@@ -1,0 +1,121 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Maven model version -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Project details -->
+    <groupId>com.booking</groupId>
+    <artifactId>BookingBDD</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>BookingBDD</name>
+
+    <!-- Common versions -->
+    <properties>
+
+        <!-- Java version -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+
+        <!-- Encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Selenium version -->
+        <selenium.version>4.21.0</selenium.version>
+
+        <!-- Cucumber version -->
+        <cucumber.version>7.18.1</cucumber.version>
+
+        <!-- TestNG version -->
+        <testng.version>7.10.2</testng.version>
+
+        <!-- WebDriverManager version -->
+        <webdrivermanager.version>5.8.0</webdrivermanager.version>
+
+        <!-- Apache POI version -->
+        <poi.version>5.2.5</poi.version>
+
+    </properties>
+
+    <dependencies>
+
+        <!-- Selenium Java : Browser automation -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- WebDriverManager : Automatically downloads browser drivers -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <!-- Cucumber Java : Step definitions support -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!-- Cucumber TestNG : Run Cucumber with TestNG -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!-- TestNG : Test execution framework -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Apache POI : Read Excel (.xls) -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <!-- Apache POI OOXML : Read Excel (.xlsx) -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <plugins>
+
+            <!-- Maven Compiler Plugin : Compile Java code -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Surefire Plugin : Run tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>

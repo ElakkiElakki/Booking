@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<!-- Parallel Execution Suite -->
+<suite name="Booking BDD Parallel Suite"
+       verbose="1"
+       parallel="tests"
+       thread-count="1"
+       data-provider-thread-count="1">
+
+    <!-- Only One Active Test Thread -->
+    <test name="Booking Test Thread 1">
+        <classes>
+            <class name="testRunner.TestRunnerIO"/>
+        </classes>
+    </test>
+
+    <!--
+    <test name="Booking Test Thread 2">
+        <classes>
+            <class name="testRunner.TestRunnerIO"/>
+        </classes>
+    </test>
+
+    <test name="Booking Test Thread 3">
+        <classes>
+            <class name="testRunner.TestRunnerIO"/>
+        </classes>
+    </test>
+
+    <test name="Booking Test Thread 4">
+        <classes>
+            <class name="testRunner.TestRunnerIO"/>
+        </classes>
+    </test>
+
+    <test name="Booking Test Thread 5">
+        <classes>
+            <class name="testRunner.TestRunnerIO"/>
+        </classes>
+    </test>
+    -->
+
+</suite>
