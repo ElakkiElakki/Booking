@@ -22,5 +22,5 @@ Feature: SC01_ST - Homepage Search
 
     # ── TC1 Row 4 — Past date ─────────────────────────────────────────
     Given User is on booking.com stays homepage
-    When User performs search with destination "South Korea" date "2026-04-16" adults 0 children 0
+    When User performs search with destination "South Korea" date "2026-04-06" adults 0 children 0
     Then "Past date is not selectable" should be verified on homepage

@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.List;
 
 public class ST_BookingPage extends baseclass {
 
@@ -112,32 +113,80 @@ public class ST_BookingPage extends baseclass {
 
     // ── Enter phone ───────────────────────────────────────────────────────
     public void staysEnterPhone(String phone)
-                                throws InterruptedException {
-        Thread.sleep(300);
-        // ✅ From screenshot — phone is inside IN +91 div
-        WebElement field = findField(
-            "input[name='phone']",
-            "input[type='tel']",
-            "input[id*='phone']",
-            "input[autocomplete='tel']");
-        if (field != null) {
-            clearAndType(field, phone);
-            System.out.println("Phone entered: " + phone + " ✅");
-        } else {
-            // ✅ XPath fallback
-            try {
-                WebElement phoneField = driver.findElement(
-                    By.xpath(
-                        "//label[contains(text(),'Phone')]" +
-                        "/following-sibling::div//input | " +
-                        "//div[contains(@class,'phone')]//input"));
-                clearAndType(phoneField, phone);
-                System.out.println("Phone via xpath ✅");
-            } catch (Exception e) {
-                System.out.println("Phone not found");
-            }
+            throws InterruptedException {
+Thread.sleep(300);
+try {
+// ✅ booking.com phone field is next to IN +91 dropdown
+// It's an input inside a div with phone-related class
+WebElement field = null;
+
+// ✅ Try 1 — direct input next to country code
+String[] locators = {
+"input[name='phone']",
+"input[type='tel']",
+"input[id*='phone']",
+"input[autocomplete='tel']",
+"input[class*='phone']"
+};
+
+for (String locator : locators) {
+try {
+WebElement el = driver.findElement(
+    By.cssSelector(locator));
+if (el.isDisplayed()) {
+    field = el;
+    System.out.println("Phone found: "
+        + locator);
+    break;
+}
+} catch (Exception ignored) {}
+}
+
+// ✅ Try 2 — find input after IN +91 select/div
+if (field == null) {
+try {
+field = driver.findElement(By.xpath(
+    "//div[contains(@class,'phone')]//input" +
+    "| //select[contains(@id,'callingCode')]" +
+    "/following-sibling::input" +
+    "| //div[contains(@data-testid,'phone')]//input"
+));
+System.out.println("Phone via xpath ✅");
+} catch (Exception ignored) {}
+}
+
+// ✅ Try 3 — get ALL inputs and find tel type
+if (field == null) {
+try {
+List<WebElement> inputs = driver.findElements(
+    By.tagName("input"));
+for (WebElement input : inputs) {
+    String type = input.getAttribute("type");
+    String name = input.getAttribute("name");
+    if ("tel".equals(type) ||
+        (name != null && name.contains("phone"))) {
+        if (input.isDisplayed()) {
+            field = input;
+            System.out.println(
+                "Phone found by type/name ✅");
+            break;
         }
     }
+}
+} catch (Exception ignored) {}
+}
+
+if (field != null) {
+clearAndType(field, phone);
+System.out.println("Phone entered: " + phone + " ✅");
+} else {
+System.out.println("Phone field not found!");
+}
+
+} catch (Exception e) {
+System.out.println("enterPhone: " + e.getMessage());
+}
+}
 
     // ── Click Next: Final details ─────────────────────────────────────────
     public void staysClickNext() throws InterruptedException {
