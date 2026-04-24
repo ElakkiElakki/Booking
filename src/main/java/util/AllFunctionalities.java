@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.time.Duration;
 import java.util.List;
 import java.util.Properties;
@@ -121,14 +122,26 @@ public class AllFunctionalities {
             Thread.currentThread().interrupt();
         }
     }
-
+//Dhana changes 
     public static Object[][] getData(String sheetName) {
         try {
-            FileInputStream fis =
-                    new FileInputStream("./src/test/resources/locationData.xlsx");
+        	InputStream fis = AllFunctionalities.class
+        	        .getClassLoader()
+        	        .getResourceAsStream("testdata/Booking.xlsx");
 
-            Workbook wb = WorkbookFactory.create(fis);
-            Sheet sheet = wb.getSheet(sheetName);
+        	if (fis == null) {
+        	    throw new RuntimeException("❌ Excel file NOT FOUND in resources!");
+        	}
+
+        	Workbook wb = WorkbookFactory.create(fis);  // ✅ CREATE FIRST
+
+        	
+
+        	Sheet sheet = wb.getSheet(sheetName.trim()); // ✅ trim added
+
+        	if (sheet == null) {
+        	    throw new RuntimeException("❌ Sheet NOT FOUND: " + sheetName);
+        	}
 
             int rows = sheet.getPhysicalNumberOfRows();
             int cols = sheet.getRow(0).getPhysicalNumberOfCells();
