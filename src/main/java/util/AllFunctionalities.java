@@ -180,8 +180,14 @@ public class AllFunctionalities {
             throw new RuntimeException(e);
         }
     }
+
+
+    
     //stays-v added
     public WebElement waitForClickable(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
 }
+    
+}
+
