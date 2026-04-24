@@ -1,18 +1,18 @@
 package stepDefinition;
 
 import io.cucumber.java.en.*;
-import pages.SC04_FH_FlightsPage;
+import pages.FH_FlightsPage;
 import util.AllFunctionalities;
 
-public class SC04_FH_FlightsSteps {
+public class FH_FlightsSteps {
 
-    SC04_FH_FlightsPage flightsPage =
-            new SC04_FH_FlightsPage(AllFunctionalities.getDriver());
+    FH_FlightsPage flightsPage =
+            new FH_FlightsPage(AllFunctionalities.getDriver());
 
     // ✅ Initialize safely
     @Given("initialize flight page")
     public void init_flight_page() {
-        flightsPage = new SC04_FH_FlightsPage(AllFunctionalities.getDriver());
+        flightsPage = new FH_FlightsPage(AllFunctionalities.getDriver());
     }
     public void sleep() {
         try {

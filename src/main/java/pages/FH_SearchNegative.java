@@ -6,12 +6,12 @@ import java.util.List;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
-public class SC06_FH_SearchNegative {
+public class FH_SearchNegative {
 
     WebDriver driver;
     WebDriverWait wait;
 
-    public SC06_FH_SearchNegative(WebDriver driver) {
+    public FH_SearchNegative(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }

@@ -1,17 +1,17 @@
 package stepDefinition;
 
 import io.cucumber.java.en.*;
-import pages.SC03_FH_HotelDetailsPage;
+import pages.FH_HotelDetailsPage;
 import util.AllFunctionalities;
 
-public class SC03_FH_HotelDetailsSteps {
-	SC03_FH_HotelDetailsPage detailsPage =
-	        new SC03_FH_HotelDetailsPage(AllFunctionalities.getDriver());
+public class FH_HotelDetailsSteps {
+	FH_HotelDetailsPage detailsPage =
+	        new FH_HotelDetailsPage(AllFunctionalities.getDriver());
 
     // ✅ Initialize safely
     @Given("initialize hotel details page")
     public void init_details_page() {
-        detailsPage = new SC03_FH_HotelDetailsPage(AllFunctionalities.getDriver());
+        detailsPage = new FH_HotelDetailsPage(AllFunctionalities.getDriver());
     }
     @When("user clicks view map and closes it")
     public void user_clicks_view_map_and_closes_it() {

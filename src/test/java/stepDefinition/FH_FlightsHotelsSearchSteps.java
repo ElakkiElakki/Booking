@@ -1,13 +1,13 @@
 package stepDefinition;
 
 import io.cucumber.java.en.*;
-import pages.SC01_FH_FlightsHotelsSearchPage;
+import pages.FH_FlightsHotelsSearchPage;
 import util.AllFunctionalities;
 
-public class SC01_FH_FlightsHotelsSearchSteps {
+public class FH_FlightsHotelsSearchSteps {
 
-    SC01_FH_FlightsHotelsSearchPage searchPage =
-            new SC01_FH_FlightsHotelsSearchPage(AllFunctionalities.getDriver());
+    FH_FlightsHotelsSearchPage searchPage =
+            new FH_FlightsHotelsSearchPage(AllFunctionalities.getDriver());
 
     @When("user enters departure location from excel row {int}")
     public void enter_departure(int row) {

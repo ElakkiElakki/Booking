@@ -4,12 +4,12 @@ import java.time.Duration;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
-public class SC02_FH_HotelListingPage {
+public class FH_HotelListingPage {
 
     WebDriver driver;
     WebDriverWait wait;
 
-    public SC02_FH_HotelListingPage(WebDriver driver) {
+    public FH_HotelListingPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
