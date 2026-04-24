@@ -1,13 +1,13 @@
 package stepDefinition;
 
 import io.cucumber.java.en.*;
-import pages.SC06_FH_SearchNegative;   // ✅ correct import
+import pages.FH_SearchNegative;   // ✅ correct import
 import util.AllFunctionalities;
 
-public class SC06_FH_SearchNegativeSteps {   // ✅ rename class (important)
+public class FH_SearchNegativeSteps {   // ✅ rename class (important)
 
-    SC06_FH_SearchNegative page =
-            new SC06_FH_SearchNegative(AllFunctionalities.getDriver());
+    FH_SearchNegative page =
+            new FH_SearchNegative(AllFunctionalities.getDriver());
 
     @And("user enters departure {string}")
     public void enter_departure(String dep) {

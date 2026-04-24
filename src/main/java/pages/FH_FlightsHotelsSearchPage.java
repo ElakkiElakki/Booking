@@ -6,12 +6,12 @@ import java.util.List;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
-public class SC01_FH_FlightsHotelsSearchPage {
+public class FH_FlightsHotelsSearchPage {
 
     WebDriver driver;
     WebDriverWait wait;
 
-    public SC01_FH_FlightsHotelsSearchPage(WebDriver driver) {
+    public FH_FlightsHotelsSearchPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }

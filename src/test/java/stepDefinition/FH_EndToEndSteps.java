@@ -2,16 +2,16 @@ package stepDefinition;
 
 import io.cucumber.java.en.*;
 import io.cucumber.datatable.DataTable;
-import pages.SC05_FH_EndToEnd;
+import pages.FH_EndToEnd;
 import util.AllFunctionalities;
 
 import java.util.List;
 import java.util.Map;
 
-public class SC05_FH_EndToEndSteps {
+public class FH_EndToEndSteps {
 
-    SC05_FH_EndToEnd travellerPage =
-            new SC05_FH_EndToEnd(AllFunctionalities.getDriver());
+    FH_EndToEnd travellerPage =
+            new FH_EndToEnd(AllFunctionalities.getDriver());
 
     @When("user enters complete traveller details")
     public void user_enters_traveller_details(DataTable table) {

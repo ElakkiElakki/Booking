@@ -1,17 +1,17 @@
 package stepDefinition;
 
 import io.cucumber.java.en.*;
-import pages.SC02_FH_HotelListingPage;
+import pages.FH_HotelListingPage;
 import util.AllFunctionalities;
 
-public class SC02_FH_HotelListingSteps {
+public class FH_HotelListingSteps {
 
-    SC02_FH_HotelListingPage hotelPage = new SC02_FH_HotelListingPage(AllFunctionalities.getDriver());
+    FH_HotelListingPage hotelPage = new FH_HotelListingPage(AllFunctionalities.getDriver());
 
     // ✅ ONLY INITIALIZE PAGE
     @Given("user is on hotel listing page")
     public void user_on_hotel_listing_page() {
-        hotelPage = new SC02_FH_HotelListingPage(AllFunctionalities.getDriver());
+        hotelPage = new FH_HotelListingPage(AllFunctionalities.getDriver());
     }
 
     // ================= NEW STEPS =================
