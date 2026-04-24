@@ -96,58 +96,95 @@ public class ST_HotelDetailsPage extends baseclass {
 
     // ── Navigate calendar ─────────────────────────────────────────────────
     private void navigateToDate(String targetDate)
-                                throws InterruptedException {
-        String[] parts  = targetDate.split("-");
-        int targetYear  = Integer.parseInt(parts[0]);
-        int targetMonth = Integer.parseInt(parts[1]);
+            throws InterruptedException {
 
-        String[] monthNames = {
-            "", "January", "February", "March", "April",
-            "May", "June", "July", "August", "September",
-            "October", "November", "December"
-        };
+String[] parts    = targetDate.split("-");
+int targetYear    = Integer.parseInt(parts[0]);
+int targetMonth   = Integer.parseInt(parts[1]);
 
-        System.out.println("Target: "
-            + monthNames[targetMonth] + " " + targetYear);
+String[] monthNames = {
+"", "January", "February", "March", "April",
+"May", "June", "July", "August", "September",
+"October", "November", "December"
+};
 
-        for (int i = 0; i < 12; i++) {
-            // ✅ Check h3 month header
-            try {
-                List<WebElement> headers = driver.findElements(
-                    By.cssSelector("h3"));
-                for (WebElement h : headers) {
-                    String text = h.getText().trim();
-                    if (text.contains(monthNames[targetMonth]) &&
-                        text.contains(String.valueOf(targetYear))) {
-                        System.out.println("Correct month: "
-                            + text + " ✅");
-                        return;
-                    }
-                }
-            } catch (Exception ignored) {}
+System.out.println("Target: "
++ monthNames[targetMonth] + " " + targetYear);
 
-            // ✅ Also check date span
-            List<WebElement> found = driver.findElements(
-                By.cssSelector(
-                    "span[data-date='" + targetDate + "']"));
-            if (!found.isEmpty() && found.get(0).isDisplayed()) {
-                System.out.println("Date visible ✅");
-                return;
-            }
+for (int attempt = 0; attempt < 24; attempt++) {
 
-            // ✅ Click Next month
-            try {
-                driver.findElement(By.cssSelector(
-                    "button[aria-label='Next month']")).click();
-                System.out.println("Next month — attempt " + (i + 1));
-                Thread.sleep(600);
-            } catch (Exception e) {
-                System.out.println("Next button not found");
-                return;
+// ✅ Check header
+try {
+List<WebElement> headers = driver.findElements(
+By.cssSelector("h3"));
+for (WebElement h : headers) {
+String text = h.getText().trim();
+if (text.contains(monthNames[targetMonth]) &&
+    text.contains(String.valueOf(targetYear))) {
+    System.out.println("Month found ✅");
+    return;
+}
+}
+} catch (Exception ignored) {}
+
+// ✅ Check date span
+List<WebElement> found = driver.findElements(
+By.cssSelector(
+"span[data-date='" + targetDate + "']"));
+if (!found.isEmpty() && found.get(0).isDisplayed()) {
+System.out.println("Date visible ✅");
+return;
+}
+
+// ✅ Get current month
+try {
+List<WebElement> headers = driver.findElements(
+By.cssSelector("h3"));
+
+int currentYear  = targetYear;
+int currentMonth = targetMonth;
+
+for (WebElement h : headers) {
+String text = h.getText().trim();
+for (int m = 1; m <= 12; m++) {
+    if (text.contains(monthNames[m])) {
+        for (int y = 2025; y <= 2030; y++) {
+            if (text.contains(String.valueOf(y))) {
+                currentYear  = y;
+                currentMonth = m;
+                break;
             }
         }
     }
+}
+break;
+}
 
+// ✅ Go forward or backward
+boolean goForward =
+(targetYear > currentYear) ||
+(targetYear == currentYear &&
+ targetMonth > currentMonth);
+
+if (goForward) {
+driver.findElement(By.cssSelector(
+    "button[aria-label='Next month']")).click();
+System.out.println("→ Next month "
+    + (attempt + 1));
+} else {
+driver.findElement(By.cssSelector(
+    "button[aria-label='Previous month']")).click();
+System.out.println("← Prev month "
+    + (attempt + 1));
+}
+Thread.sleep(600);
+
+} catch (Exception e) {
+System.out.println("Nav error: " + e.getMessage());
+return;
+}
+}
+}
     // ── Select room count from dropdown ───────────────────────────────────
     private void selectRoomCount(int count) throws InterruptedException {
         try {
