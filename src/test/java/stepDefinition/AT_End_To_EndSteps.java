@@ -53,7 +53,7 @@ public class AT_End_To_EndSteps {
     @When("user clicks plus svg button and clicks next button")
     public void user_clicks_plus_svg_button_and_clicks_next_button() {
         galleryImagePage.clickPlusSvgButton();
-        galleryImagePage.clickNextButton();git 
+        galleryImagePage.clickNextButton();
     }
     @When("user fills all required details and clicks payment details button")
     public void user_fills_all_required_details_and_clicks_payment_details_button() {
