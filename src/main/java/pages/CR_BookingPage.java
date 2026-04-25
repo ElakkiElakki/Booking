@@ -29,17 +29,13 @@ public class CR_BookingPage extends baseclass {
     @FindBy(xpath = "//input[@placeholder='House/apartment number and street name']")
     WebElement address; // address
 
-    @FindBy(name = "billingAddressAddress")
+    @FindBy(xpath="//input[@data-testid='billingAddressCity-field']")
     WebElement city; // city
 
     @FindBy(xpath = "//input[@data-testid='billingAddressPostcode-field']")
     WebElement postcode; // postcode
 
-    @FindBy(xpath = "//*[contains(text(),'Google Pay')]")
-    WebElement googlePay; // payment
-
-    @FindBy(xpath = "//button[contains(.,'Continue')]")
-    WebElement continueBtn; // continue
+    
     
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
@@ -55,13 +51,5 @@ public class CR_BookingPage extends baseclass {
         postcode.sendKeys(pc);
     }
 
-    // select payment
-    public void selectGooglePay() {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", googlePay);
-    }
-
-    // click continue
-    public void clickContinue() {
-        continueBtn.click();
-    }
+    
 }

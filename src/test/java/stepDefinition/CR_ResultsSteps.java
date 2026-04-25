@@ -11,23 +11,46 @@ public class CR_ResultsSteps {
     // verify results list
     @Then("user should see list of available cars")
     public void verify_results_list() {
-        pages.resultsPage.handlePopupIfPresent(); // handle popup
-        int count = pages.resultsPage.getResultCount(); // get result count
+
+        pages.resultsPage.handlePopupIfPresent();
+
+        int count = pages.resultsPage.getResultCount();
+
         Assert.assertTrue(count > 0, "❌ No cars displayed");
+
+        System.out.println("✅ Cars displayed: " + count);
     }
 
     // apply filters
     @When("user applies filters like location, car category and price per day")
     public void apply_filters() {
-        beforeCount = pages.resultsPage.getResultCount(); // store initial count
-        pages.resultsPage.applyAllFilters(); // apply filters
+
+        beforeCount = pages.resultsPage.getResultCount();
+
+        System.out.println("👉 Before filters: " + beforeCount);
+
+        pages.resultsPage.applyAllFilters();
     }
 
     // verify filtered results
     @Then("filtered results should be displayed")
     public void verify_filtered() {
+
         int after = pages.resultsPage.getResultCount(); // get new count
-        Assert.assertTrue(after >= 0, "❌ Filter failed");    }
+
+        System.out.println("👉 Before filters: " + beforeCount);
+        System.out.println("👉 After filters: " + after);
+
+        // ✔ Ensure results exist
+        Assert.assertTrue(after > 0, "❌ No results after applying filters");
+
+        // ✔ Soft validation (no failure if equal)
+        if (after == beforeCount) {
+            System.out.println("⚠️ Filter applied but count did not change (possible real scenario)");
+        } else {
+            System.out.println("✅ Filters changed results");
+        }
+    }
 
     // clear filters
     @When("user clears all filters")
