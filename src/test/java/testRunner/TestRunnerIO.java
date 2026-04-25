@@ -32,16 +32,15 @@ import io.cucumber.testng.CucumberOptions;
 //			    "src/test/resources/features/FT_EndToEndBooking.feature",
 //			    "src/test/resources/features/FT_FlightOptions.feature",
 //			    "src/test/resources/features/FT_FoodAndSeatPreference.feature",
-//			    "src/test/resources/features/FT_ScenrioOutline.feature",
-//			    "src/test/resources/features/FT_SearchingFlights.feature",
-//			    "src/test/resources/features/FT_TravellerDetails.feature",
+//			    "src/test/resources/features/FT_SearchingFlights.feature",     //passed
+			    "src/test/resources/features/FT_TravellerDetails.feature",
 
 			    // Stays (ST)
-			    "src/test/resources/features/ST_Booking.feature",
-			    "src/test/resources/features/ST_EndToEnd.feature",
-			    "src/test/resources/features/ST_Filters.feature",
-			    "src/test/resources/features/ST_HomeSearch.feature",
-			    "src/test/resources/features/ST_HotelDetails.feature"
+//			    "src/test/resources/features/ST_Booking.feature",
+//			    "src/test/resources/features/ST_EndToEnd.feature",
+//			    "src/test/resources/features/ST_Filters.feature",
+//			    "src/test/resources/features/ST_HomeSearch.feature",
+//			    "src/test/resources/features/ST_HotelDetails.feature"
 			},
 		glue = {"stepDefinition"},
         plugin = {

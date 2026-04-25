@@ -44,8 +44,13 @@ public class FT_EndToEndBookingPage {
 
 	By ecoClassicContinue = By.xpath("//button[@data-testid='branded_fare_cta_1']");
 	By nextBtn = By.xpath("(//button[.//span[text()='Next']])[1]");
-	By skipBtn = By.xpath("(//button[.//span[text()='Skip']])[1]");
-
+//	By skipBtn = By.xpath("(//button[.//span[text()='Skip']])[1]");
+	By skipBtn = By.xpath(
+		    "//button[contains(.,'Skip')]" +
+		    " | //button[contains(.,'No thanks')]" +
+		    " | //button[contains(.,'Continue')]" +
+		    " | //span[contains(.,'Skip')]/ancestor::button[1]"
+		);
 	By contactEmail = By.name("booker.email");
 	By countryCode = By.name("countryCode");
 	By phoneNumber = By.name("number");

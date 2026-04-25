@@ -101,33 +101,52 @@ public class FT_FoodAndSeatPreferencePages {
 
 	private void clickTwoAvailableSeats() {
 
-		By seatsLocator = By.xpath("//button[contains(@data-testid,'seat_') and contains(@aria-label,'Assign')]");
+	    By seatsLocator = By.xpath(
+	        "//button[not(@disabled) and (" +
+	        "contains(@data-testid,'seat') or " +
+	        "contains(@aria-label,'seat') or " +
+	        "contains(@aria-label,'Seat') or " +
+	        "contains(@class,'seat')" +
+	        ")]"
+	    );
 
-		java.util.List<WebElement> seats = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(seatsLocator));
+	    java.util.List<WebElement> seats = wait.until(
+	        ExpectedConditions.presenceOfAllElementsLocatedBy(seatsLocator)
+	    );
 
-		if (seats.size() < 2) {
-			throw new RuntimeException("❌ Not enough available seats");
-		}
+	    int clicked = 0;
 
-		// Click first 2 seats
-		for (int i = 0; i < 2; i++) {
+	    for (WebElement seat : seats) {
+	        try {
+	            if (seat.isDisplayed() && seat.isEnabled()) {
 
-			WebElement seat = seats.get(i);
+	                ((JavascriptExecutor) driver).executeScript(
+	                    "arguments[0].scrollIntoView({block:'center'});", seat
+	                );
 
-			String label = seat.getAttribute("aria-label");
+	                String label = seat.getAttribute("aria-label");
 
-			try {
-				seat.click();
-			} catch (Exception e) {
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();", seat);
-			}
+	                ((JavascriptExecutor) driver).executeScript(
+	                    "arguments[0].click();", seat
+	                );
 
-			System.out.println("Selected → " + label);
+	                System.out.println("Selected seat → " + label);
 
-			waitForUI();
-		}
+	                clicked++;
+	                waitForUI();
+
+	                if (clicked == 2) {
+	                    break;
+	                }
+	            }
+	        } catch (Exception ignored) {
+	        }
+	    }
+
+	    if (clicked < 2) {
+	        throw new RuntimeException("Could not select two available seats.");
+	    }
 	}
-
 	private void waitForUI() {
 		try {
 			Thread.sleep(1200);
@@ -144,7 +163,7 @@ public class FT_FoodAndSeatPreferencePages {
 // ================= PAYMENT =================
 
 	public void clickCheckOrSkip() {
-
+		selectNoTravelProtection();
 		By checkAndPay = By.xpath("//button[.//span[text()='Check and pay']]");
 		By skip = By.xpath("//button[.//span[text()='Skip']]");
 
@@ -172,7 +191,27 @@ public class FT_FoodAndSeatPreferencePages {
 			System.out.println("Clicked Skip instead");
 		}
 	}
+	
+	public void selectNoTravelProtection() {
 
+	    By card = By.xpath(
+	        "//div[@data-testid='subtitle_0' and contains(text(),'€0.00')]/ancestor::label[1]"
+	    );
+
+	    WebElement option = wait.until(
+	        ExpectedConditions.elementToBeClickable(card)
+	    );
+
+	    ((JavascriptExecutor) driver).executeScript(
+	        "arguments[0].scrollIntoView({block:'center'});", option
+	    );
+
+	    ((JavascriptExecutor) driver).executeScript(
+	        "arguments[0].click();", option
+	    );
+
+	    System.out.println("Clicked No travel protection card");
+	}
 	public void verifyPaymentPage() {
 		wait.until(driver -> driver.getCurrentUrl().contains("payment"));
 
