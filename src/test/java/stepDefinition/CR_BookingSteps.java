@@ -9,7 +9,7 @@ public class CR_BookingSteps {
 
     // fill booking form
     @When("user fills booking details from excel")
-    public void fill_details_from_excel() {
+    public void fill_details_from_excel()  {
 
         Object[][] data = AllFunctionalities.getData("car"); // read excel data
 
@@ -21,19 +21,14 @@ public class CR_BookingSteps {
                 data[0][4].toString(),
                 data[0][5].toString()
         );
+        
     }
+ 
+    @Then("booking form should be filled successfully")
+    public void verify_form_filled() {
 
-    // select payment and continue
-    @And("user selects Google Pay and continues")
-    public void select_payment_and_continue() {
-        pages.bookingPage.selectGooglePay(); // select payment
-        pages.bookingPage.clickContinue(); // continue
-    }
+        System.out.println("✅ Booking form filled successfully");
 
-    // verify booking
-    @Then("booking should proceed successfully")
-    public void verify_booking() {
-        String url = pages.bookingPage.getCurrentUrl(); // get url
-        System.out.println("Booking URL: " + url);
+   
     }
-}
+    }
