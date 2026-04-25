@@ -42,32 +42,55 @@ public class ST_HomePage extends baseclass {
 	}
 
 	// ── Enter destination ─────────────────────────────────────────────────
+//	public void enterDestination(String destination) throws InterruptedException {
+//		searchBox.click();
+//		Thread.sleep(300);
+//		searchBox.clear();
+//
+//		for (char c : destination.toCharArray()) {
+//			searchBox.sendKeys(String.valueOf(c));
+//			Thread.sleep(80);
+//		}
+//		Thread.sleep(2000);
+//
+//		// Click first autocomplete suggestion
+//		try {
+//			WebElement suggestion = wait.until(ExpectedConditions
+//					.visibilityOfElementLocated(By.cssSelector("[data-testid='autocomplete-result']")));
+//			System.out.println("Suggestion: " + suggestion.getText());
+//			suggestion.click();
+//		} catch (Exception e) {
+//			System.out.println("No autocomplete");
+//		}
+//	}
 	public void enterDestination(String destination) throws InterruptedException {
-		searchBox.click();
-		Thread.sleep(300);
-		searchBox.clear();
+	    searchBox.click();
+	    searchBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+	    searchBox.sendKeys(Keys.DELETE);
 
-		for (char c : destination.toCharArray()) {
-			searchBox.sendKeys(String.valueOf(c));
-			Thread.sleep(80);
-		}
-		Thread.sleep(2000);
+	    searchBox.sendKeys(destination);
+	    Thread.sleep(1000);
 
-		// Click first autocomplete suggestion
-		try {
-			WebElement suggestion = wait.until(ExpectedConditions
-					.visibilityOfElementLocated(By.cssSelector("[data-testid='autocomplete-result']")));
-			System.out.println("Suggestion: " + suggestion.getText());
-			suggestion.click();
-		} catch (Exception e) {
-			System.out.println("No autocomplete");
-		}
+	    try {
+	        WebElement suggestion = wait.until(ExpectedConditions
+	                .visibilityOfElementLocated(By.cssSelector("[data-testid='autocomplete-result']")));
+	        System.out.println("Suggestion: " + suggestion.getText());
+	        suggestion.click();
+	    } catch (Exception e) {
+	        System.out.println("No autocomplete");
+	    }
 	}
 
 	// ── Clear destination ─────────────────────────────────────────────────
+//	public void clearDestination() {
+//		searchBox.clear();
+//		searchBox.sendKeys(Keys.TAB);
+//	}
 	public void clearDestination() {
-		searchBox.clear();
-		searchBox.sendKeys(Keys.TAB);
+	    searchBox.click();
+	    searchBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+	    searchBox.sendKeys(Keys.DELETE);
+	    searchBox.sendKeys(Keys.TAB);
 	}
 
 	// ── Select checkin date ───────────────────────────────────────────────

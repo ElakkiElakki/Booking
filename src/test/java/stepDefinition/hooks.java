@@ -1,6 +1,7 @@
 package stepDefinition;
 
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -16,7 +17,10 @@ import java.util.List;
 public class hooks {
 
     private static final int MANUAL_OTP_WAIT_SECONDS = 120;
-    private static final int DEFAULT_WAIT_SECONDS = 20;
+    private static final int DEFAULT_WAIT_SECONDS = 8;
+    
+    //added for single login
+    private static boolean alreadyLoggedIn = false;
 
     @Before(order = 1)
     public void setUp() {
@@ -25,7 +29,13 @@ public class hooks {
 
     @Before(value = "@Login", order = 2)
     public void loginToApplication() {
-        WebDriver driver = AllFunctionalities.getDriver();
+//  added for single login
+    	 if (alreadyLoggedIn) {
+    	        System.out.println("Already logged in. Skipping login.");
+    	        return;
+    	    }
+//end
+    	 WebDriver driver = AllFunctionalities.getDriver();
         AllFunctionalities af = new AllFunctionalities(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAIT_SECONDS));
 
@@ -49,13 +59,13 @@ public class hooks {
         if (!isLoggedInStateVisible(driver)) {
             throw new RuntimeException("Login failed. User account state is not visible.");
         }
-
+        alreadyLoggedIn = true;
         System.out.println("Login completed successfully from Hooks.");
     }
 
     private void handleCookies(WebDriver driver) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
 
             try {
                 wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(
@@ -334,6 +344,10 @@ public class hooks {
 
     @After
     public void tearDown() {
-        AllFunctionalities.closeBrowser();
+//        AllFunctionalities.closeBrowser();
+    }
+    @AfterAll
+    public static void closeAfterAllScenarios() {
+        System.out.println("All scenarios completed.");
     }
 }

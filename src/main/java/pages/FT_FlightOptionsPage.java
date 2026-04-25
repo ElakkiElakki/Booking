@@ -2,183 +2,185 @@ package pages;
 
 import java.time.Duration;
 import java.util.List;
+
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
 import util.AllFunctionalities;
 
 public class FT_FlightOptionsPage {
 
-	WebDriver driver;
-	AllFunctionalities allFunc;
+    WebDriver driver;
+    AllFunctionalities allFunc;
+    WebDriverWait wait;
 
-	public FT_FlightOptionsPage(WebDriver driver) {
-		this.driver = driver;
-		this.allFunc = new AllFunctionalities(driver);
-	}
+    public FT_FlightOptionsPage(WebDriver driver) {
+        this.driver = driver;
+        this.allFunc = new AllFunctionalities(driver);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    }
 
-	// ================= SORT =================
+    // ================= LOCATORS =================
 
-	public void verifyCheapestSorting() {
+    // SORT
+    By cheapestTab = By.id("TAB-CHEAPEST");
+    By sortButton = By.xpath("//button[contains(.,'Sort by')]");
+    By cheapestOption = By.xpath("//button[.//div[text()='Cheapest']]");
+    By pricesLocator = By.xpath("//div[@data-testid='upt_price']");
 
-		boolean isTabPresent = driver.findElements(By.id("TAB-CHEAPEST")).size() > 0;
+    // VIEW DETAILS
+    By viewDetailsBtn = By.xpath("(//button[@data-testid='flight_card_bound_select_flight'])[1]");
+    By baggageSection = By.xpath("//h2[text()='Baggage']");
+    By closePopupBtn = By.xpath("//button[@aria-label='Close']");
 
-		if (isTabPresent) {
+    // FARE OPTIONS
+    By fareBtn = By.xpath("//button[contains(@aria-controls,'fare')]");
 
-			System.out.println("Using TAB layout");
+    // robust fare locators
+    By fareTitlesPrimary = By.xpath("//div[@data-fare-card-row='title']");
+    By fareTitlesAlt = By.xpath("//div[contains(text(),'Economy') or contains(text(),'Flex') or contains(text(),'Smart')]");
+    By farePrices = By.xpath("//div[@data-testid='upt_price']");
 
-			WebElement tab = allFunc.waitForVisible(By.id("TAB-CHEAPEST"));
-			allFunc.jsClick(tab);
+    // AIRLINE FILTER
+    By totalFlightsText = By.xpath("//div[@data-testid='search_filters_summary_results_number']");
+    By airlineCheckbox = By.xpath("//div[text()='Etihad Airways']/ancestor::label");
 
-		} else {
+    // TIME FILTER
+    By timeFilterCount = By.xpath("//span[@data-testid='flight_times_filter_v2_flight_time_departure_0_count']");
+    By timeCheckbox = By.xpath("//div[text()='12:00 AM–5:59 AM']");
 
-			System.out.println("Using DROPDOWN layout");
+    // ONE WAY
+    By oneWayOption = By.xpath("//label[@for='search_type_option_ONEWAY']");
 
-			WebElement sort = allFunc.waitForVisible(By.xpath("//button[contains(.,'Sort by')]"));
-			allFunc.click(sort);
+    // ================= SORT =================
 
-			WebElement cheap = allFunc.waitForVisible(By.xpath("//button[.//div[text()='Cheapest']]"));
-			allFunc.click(cheap);
-		}
+    public void verifyCheapestSorting() {
 
-		By pricesLocator = By.xpath("//div[@data-testid='upt_price']");
-		allFunc.waitForVisible(pricesLocator);
+        if (driver.findElements(cheapestTab).size() > 0) {
 
-		List<WebElement> prices = allFunc.getElements(pricesLocator);
+            WebElement tab = allFunc.waitForVisible(cheapestTab);
+            allFunc.jsClick(tab);
 
-		int price1 = Integer.parseInt(prices.get(0).getText().replaceAll("[^0-9]", ""));
-		int price2 = Integer.parseInt(prices.get(1).getText().replaceAll("[^0-9]", ""));
+        } else {
 
-		System.out.println("Price 1: " + price1);
-		System.out.println("Price 2: " + price2);
+            WebElement sort = allFunc.waitForVisible(sortButton);
+            allFunc.click(sort);
 
-		Assert.assertTrue(price1 <= price2, "Sorting FAILED");
+            WebElement cheap = allFunc.waitForVisible(cheapestOption);
+            allFunc.click(cheap);
+        }
 
-		System.out.println("Cheapest sorting PASSED");
-	}
+        allFunc.waitForVisible(pricesLocator);
 
-	// ================= VIEW DETAILS =================
+        List<WebElement> prices = allFunc.getElements(pricesLocator);
 
-	public void verifyFlightDetails() {
+        int price1 = Integer.parseInt(prices.get(0).getText().replaceAll("[^0-9]", ""));
+        int price2 = Integer.parseInt(prices.get(1).getText().replaceAll("[^0-9]", ""));
 
-		By viewDetails = By.xpath("(//button[@data-testid='flight_card_bound_select_flight'])[1]");
-		WebElement btn = allFunc.waitForVisible(viewDetails);
-		allFunc.jsClick(btn);
+        Assert.assertTrue(price1 <= price2, "Sorting FAILED");
+    }
 
-		System.out.println("Clicked View Details");
+    // ================= VIEW DETAILS =================
 
-		By baggage = By.xpath("//h2[text()='Baggage']");
-		WebElement baggageElement = allFunc.waitForVisible(baggage);
+    public void verifyFlightDetails() {
 
-		Assert.assertTrue(allFunc.isDisplayed(baggageElement),
-				"Flight details popup FAILED — Baggage section not visible");
+        WebElement btn = allFunc.waitForVisible(viewDetailsBtn);
+        allFunc.jsClick(btn);
 
-		System.out.println("Flight details popup PASSED");
+        WebElement baggageElement = allFunc.waitForVisible(baggageSection);
 
-		By closeBtn = By.xpath("//button[@aria-label='Close']");
-		WebElement close = allFunc.waitForVisible(closeBtn);
-		allFunc.click(close);
+        Assert.assertTrue(allFunc.isDisplayed(baggageElement),
+                "Flight details popup FAILED");
 
-		System.out.println("Closed flight details popup");
-	}
+        WebElement close = allFunc.waitForVisible(closePopupBtn);
+        allFunc.click(close);
+    }
 
-	// ================= FARE OPTIONS =================
+    // ================= FARE OPTIONS =================
 
-	public void verifyFareOptions() {
+    public void verifyFareOptions() {
 
-		try {
+        WebElement btn = allFunc.waitForVisible(fareBtn);
 
-			// Click Fare button
-			By fareBtn = By.xpath("//button[@aria-controls='flights-fare-selector-0']");
-			WebElement btn = allFunc.waitForVisible(fareBtn);
-			allFunc.jsClick(btn);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", btn);
+        allFunc.jsClick(btn);
 
-			System.out.println("Clicked Fare Options");
+        allFunc.hardWait(2);
 
-			// 🔥 Wait for ANY fare card instead of carousel
-			By fareCardsLocator = By.xpath("//div[@data-fare-card-row='title']");
+        // wait for ANY fare content instead of container
+        wait.until(driver ->
+                driver.findElements(fareTitlesPrimary).size() > 0 ||
+                driver.findElements(fareTitlesAlt).size() > 0 ||
+                driver.findElements(farePrices).size() > 1
+        );
 
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-			wait.until(ExpectedConditions.visibilityOfElementLocated(fareCardsLocator));
+        List<WebElement> fares = driver.findElements(fareTitlesPrimary);
 
-			List<WebElement> fareCards = allFunc.getElements(fareCardsLocator);
+        if (fares.size() == 0) {
+            fares = driver.findElements(fareTitlesAlt);
+        }
 
-			if (fareCards.size() == 0) {
-				throw new AssertionError("Fare options FAILED → No fare cards found");
-			}
+        if (fares.size() == 0) {
+            fares = driver.findElements(farePrices);
+        }
 
-			System.out.println("Fare options displayed: " + fareCards.size());
+        if (fares.size() == 0) {
+            throw new AssertionError("Fare options FAILED — nothing loaded");
+        }
 
-			for (int i = 0; i < Math.min(3, fareCards.size()); i++) {
-				System.out.println("Fare: " + fareCards.get(i).getText());
-			}
+        for (WebElement fare : fares) {
+            System.out.println("Fare: " + fare.getText());
+        }
+    }
 
-		} catch (Exception e) {
+    // ================= AIRLINE FILTER =================
 
-			// 🔥 fallback (sometimes already visible / different UI)
-			List<WebElement> fareCards = allFunc.getElements(By.xpath("//div[@data-fare-card-row='title']"));
+    public void validateAirlineFilter() {
 
-			if (fareCards.size() == 0) {
-				throw new AssertionError("Fare options FAILED — Not visible in any form");
-			}
+        int beforeCount = Integer.parseInt(
+                allFunc.waitForVisible(totalFlightsText).getText().replaceAll("[^0-9]", "")
+        );
 
-			System.out.println("Fare options already visible (fallback)");
-		}
-	}
-	// ================= AIRLINE FILTER =================
+        WebElement airline = allFunc.waitForVisible(airlineCheckbox);
+        allFunc.jsClick(airline);
 
-	public void validateAirlineFilter() {
+        allFunc.hardWait(3);
 
-		By totalFlights = By.xpath("//div[@data-testid='search_filters_summary_results_number']");
-		WebElement totalText = allFunc.waitForVisible(totalFlights);
+        int afterCount = Integer.parseInt(
+                driver.findElement(totalFlightsText).getText().replaceAll("[^0-9]", "")
+        );
 
-		int beforeCount = Integer.parseInt(totalText.getText().replaceAll("[^0-9]", ""));
-		System.out.println("Flights BEFORE filter: " + beforeCount);
+        Assert.assertTrue(afterCount < beforeCount, "Airline filter FAILED");
+    }
 
-		By airline = By.xpath("//div[text()='Etihad Airways']/ancestor::label");
-		WebElement airlineCheckbox = allFunc.waitForVisible(airline);
-		allFunc.jsClick(airlineCheckbox);
+    // ================= TIME FILTER =================
 
-		System.out.println("Unchecked Etihad Airways");
+    public void validateTimeFilter() {
 
-		allFunc.hardWait(3); // small wait for update
+        int expectedCount = Integer.parseInt(
+                allFunc.waitForVisible(timeFilterCount).getText()
+        );
 
-		int afterCount = Integer.parseInt(driver.findElement(totalFlights).getText().replaceAll("[^0-9]", ""));
+        WebElement cb = allFunc.waitForVisible(timeCheckbox);
+        allFunc.jsClick(cb);
 
-		System.out.println("Flights AFTER filter: " + afterCount);
+        allFunc.hardWait(3);
 
-		Assert.assertTrue(afterCount < beforeCount, "Airline filter FAILED");
+        int actualCount = Integer.parseInt(
+                driver.findElement(totalFlightsText).getText().replaceAll("[^0-9]", "")
+        );
 
-		System.out.println("Airline filter PASSED");
-	}
+        Assert.assertEquals(actualCount, expectedCount, "Time filter FAILED");
+    }
 
-	// ================= TIME FILTER =================
+    // ================= ONE WAY =================
 
-	public void validateTimeFilter() {
+    public void selectOneWay() {
 
-		By filterCount = By.xpath("//span[@data-testid='flight_times_filter_v2_flight_time_departure_0_count']");
-		WebElement countElement = allFunc.waitForVisible(filterCount);
+        WebElement element = allFunc.waitForVisible(oneWayOption);
 
-		int expectedCount = Integer.parseInt(countElement.getText());
-		System.out.println("Expected flights (filter): " + expectedCount);
-
-		By checkbox = By.xpath("//div[text()='12:00 AM–5:59 AM']");
-		WebElement cb = allFunc.waitForVisible(checkbox);
-		allFunc.jsClick(cb);
-
-		System.out.println("Time filter applied");
-
-		By totalFlights = By.xpath("//div[@data-testid='search_filters_summary_results_number']");
-		allFunc.hardWait(3);
-
-		String text = driver.findElement(totalFlights).getText();
-		int actualCount = Integer.parseInt(text.replaceAll("[^0-9]", ""));
-
-		System.out.println("Actual flights (result): " + actualCount);
-
-		Assert.assertEquals(actualCount, expectedCount, "Time filter FAILED");
-
-		System.out.println("Time filter PASSED");
-	}
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    }
 }

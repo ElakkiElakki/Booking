@@ -37,3 +37,7 @@ Feature: SC05_ST - Booking Form
       | firstName | lastName | email                    | phone |
       | Vicky     | S        | vickygroup4cap@gmail.com |       |
     Then "Finish booking page displayed" should be verified on stays booking page
+
+    
+    
+    
