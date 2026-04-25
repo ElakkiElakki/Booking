@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>1/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Tue Apr 21 11:29:06 IST 2026</td>
+<td>Started on:</td><td>Sat Apr 25 16:47:06 IST 2026</td>
 </tr>
-<tr><td>Total time:</td><td>107 seconds (107330 ms)</td>
+<tr><td>Total time:</td><td>170 seconds (170543 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,8 +67,8 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
-<table width='100%' border='1' class='invocation-passed'>
-<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
 <td><b>Attribute(s)</b></td>
 <td width="30%"><b>Exception</b></td>
@@ -76,10 +76,35 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='testRunner.TestRunnerIO.runScenario()'><b>runScenario</b><br>Test class: testRunner.TestRunnerIO<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Open Booking homepage and validate successful launch", "Booking Home Page Validation"</td>
-<td></td>
-<td>106</td>
-<td>testRunner.TestRunnerIO@2f54a33d</td></tr>
+<td title='testRunner.TestRunnerIO.runScenario()'><b>runScenario</b><br>Test class: testRunner.TestRunnerIO<br>Test method: Runs Cucumber Scenarios<br>Parameters: "AT08 Validate user can click attraction gallery image and select tickets", "Attraction Gallery Image Validation"</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.name: firstName (tried for 15 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.21.0&apos;, revision: &apos;79ed462ef4&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 147.0.7727.103, chrome: {chromedriverVersion: 147.0.7727.117 (474cc805edd..., userDataDir: C:\Users\Hp\AppData\Local\T...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:56642}, goog:processID: 32492, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:56642/devtoo..., se:cdpVersion: 147.0.7727.103, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: f2cf52333bec6ffc01fc43072ff18a8f
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at util.AllFunctionalities.waitForVisible(AllFunctionalities.java:97)
+	at pages.AT_End_To_End.fillDetailsAndClickPaymentButton(AT_End_To_End.java:358)
+	at stepDefinition.AT_End_To_EndSteps.user_fills_all_required_details_and_clicks_payment_details_button(AT_End_To_EndSteps.java:60)
+	at ✽.user fills all required details and clicks payment details button(file:///D:/SPRINT/Booking/src/test/resources/features/AT_End_To_End.feature:13)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1386999197", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1386999197'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.name: firstName (tried for 15 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.21.0&apos;, revision: &apos;79ed462ef4&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 147.0.7727.103, chrome: {chromedriverVersion: 147.0.7727.117 (474cc805edd..., userDataDir: C:\Users\Hp\AppData\Local\T...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:56642}, goog:processID: 32492, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:56642/devtoo..., se:cdpVersion: 147.0.7727.103, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: f2cf52333bec6ffc01fc43072ff18a8f
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at util.AllFunctionalities.waitForVisible(AllFunctionalities.java:97)
+	at pages.AT_End_To_End.fillDetailsAndClickPaymentButton(AT_End_To_End.java:358)
+	at stepDefinition.AT_End_To_EndSteps.user_fills_all_required_details_and_clicks_payment_details_button(AT_End_To_EndSteps.java:60)
+	at ✽.user fills all required details and clicks payment details button(file:///D:/SPRINT/Booking/src/test/resources/features/AT_End_To_End.feature:13)
+</pre></div></td>
+<td>169</td>
+<td>testRunner.TestRunnerIO@3943a2be</td></tr>
 </table><p>
 </body>
 </html>

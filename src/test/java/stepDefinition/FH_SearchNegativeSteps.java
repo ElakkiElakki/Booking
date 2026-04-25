@@ -9,7 +9,7 @@ public class FH_SearchNegativeSteps {   // ✅ rename class (important)
     FH_SearchNegative page =
             new FH_SearchNegative(AllFunctionalities.getDriver());
 
-    @And("user enters departure {string}")
+    @And("FH user enters departure {string}")
     public void enter_departure(String dep) {
 
         if (dep == null || dep.trim().isEmpty()) {
@@ -19,7 +19,7 @@ public class FH_SearchNegativeSteps {   // ✅ rename class (important)
         }
     }
 
-    @And("user enters destination {string}")
+    @And("FH user enters destination {string}")
     public void enter_destination(String dest) {
 
         if (dest == null || dest.trim().isEmpty()) {

@@ -17,7 +17,6 @@ public class CR_CommonSteps {
     @Given("user is on car rental results page")
     public void user_is_on_results_page() {
 
-        driver = pages.searchPage.driver; // get driver from page
 
         pages.searchPage.openCarRentalPage(); // open site
         pages.searchPage.enterPickup("Dubai"); // enter pickup

@@ -5,7 +5,7 @@ import util.AllFunctionalities;
 
 public class baseclass {
 
-    protected WebDriver driver;
+    public WebDriver driver;
     protected AllFunctionalities af;
 
     public baseclass(WebDriver driver) {

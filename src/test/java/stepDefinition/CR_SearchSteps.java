@@ -1,6 +1,7 @@
 package stepDefinition;
 
 import io.cucumber.java.en.*;
+import util.AllFunctionalities;
 
 import java.time.Duration;
 
@@ -65,9 +66,9 @@ public class CR_SearchSteps {
     	String url = pages.searchPage.getCurrentUrl();
 
     	if (expected.equalsIgnoreCase("success")) {
-
-    	    new WebDriverWait(pages.searchPage.driver, Duration.ofSeconds(20))
-    	            .until(ExpectedConditions.urlContains("search-results"));
+//    		new WebDriverWait(pages.searchPage.driver, Duration.ofSeconds(20))
+    		new WebDriverWait(AllFunctionalities.getDriver(), Duration.ofSeconds(20))    	           
+    		.until(ExpectedConditions.urlContains("search-results"));
 
     	    Assert.assertTrue(url.contains("search-results"),
     	            "❌ Results page not displayed");

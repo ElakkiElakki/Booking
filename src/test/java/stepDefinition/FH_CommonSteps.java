@@ -3,13 +3,13 @@ package stepDefinition;
 import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java.en.*;
-import pages.SC01_FH_FlightsHotelsSearchPage;
+import pages.FH_FlightsHotelsSearchPage;
 import util.AllFunctionalities;
 
 public class FH_CommonSteps {
 
-    SC01_FH_FlightsHotelsSearchPage searchPage =
-            new SC01_FH_FlightsHotelsSearchPage(AllFunctionalities.getDriver());
+    FH_FlightsHotelsSearchPage searchPage =
+            new FH_FlightsHotelsSearchPage(AllFunctionalities.getDriver());
 
     @Given("user is on booking homepage after login")
     public void user_on_homepage_after_login() {
@@ -20,7 +20,7 @@ public class FH_CommonSteps {
 
         driver.get("https://www.booking.com");   // 🔥 ADD THIS
 
-        searchPage = new SC01_FH_FlightsHotelsSearchPage(driver);
+        searchPage = new FH_FlightsHotelsSearchPage(driver);
     }
 
     @When("user opens flight + hotel tab")

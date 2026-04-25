@@ -1,6 +1,8 @@
 package stepDefinition;
 
 import io.cucumber.java.en.*;
+import util.AllFunctionalities;
+
 import org.testng.Assert;
 import base.pages;
 
@@ -21,7 +23,8 @@ public class CR_ProtectionSteps {
     // verify booking page
     @Then("user should proceed to booking page")
     public void verify_navigation() {
-        String url = pages.protectionPage.driver.getCurrentUrl(); // get url
+//        String url = pages.protectionPage.driver.getCurrentUrl(); 
+    	String url = AllFunctionalities.getDriver().getCurrentUrl();
         Assert.assertTrue(url.contains("book"), "❌ Not navigated to booking page");
     }
 }
