@@ -1,11 +1,9 @@
 package pages;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
 import java.time.Duration;
 import base.baseclass;
-
 
 public class CR_ProtectionPage extends baseclass {
 
@@ -14,22 +12,47 @@ public class CR_ProtectionPage extends baseclass {
     public CR_ProtectionPage(WebDriver driver) {
         super(driver);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//button[contains(.,'With Full Protection')]")
-    WebElement withProtection; // with protection
+    // 🔹 LOCATORS
 
-    @FindBy(xpath = "//button[contains(.,'Without Full Protection')]")
-    WebElement withoutProtection; // without protection
+    By withProtectionBtn = By.xpath("//span[text()='With Full Protection']");
+    By withoutProtectionBtn = By.xpath("//span[text()='Without Full Protection']");
 
-    // click with protection
+    // 🔹 CLICK WITH PROTECTION
     public void clickWithProtection() {
-        wait.until(ExpectedConditions.elementToBeClickable(withProtection)).click();
+
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(withProtectionBtn));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].click();", btn);
+
+        System.out.println("✅ Clicked WITH protection");
+
+        wait.until(ExpectedConditions.urlContains("book"));
     }
 
-    // click without protection
+    // 🔹 CLICK WITHOUT PROTECTION
     public void clickWithoutProtection() {
-        wait.until(ExpectedConditions.elementToBeClickable(withoutProtection)).click();
+
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(withoutProtectionBtn));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].click();", btn);
+
+        System.out.println("✅ Clicked WITHOUT protection");
+
+        wait.until(ExpectedConditions.urlContains("book"));
+    }
+
+    // 🔹 GET URL
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
     }
 }

@@ -4,6 +4,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
 import java.time.Duration;
+
+
 import base.baseclass;
 
 /**
@@ -23,6 +25,7 @@ public class CR_SearchPage extends baseclass {
     WebElement pickup; // pickup field
 
     @FindBy(name = "dropoff-location")
+	public
     WebElement drop; // drop field
 
     @FindBy(xpath = "//button[@type='submit']")
@@ -51,17 +54,22 @@ public class CR_SearchPage extends baseclass {
 
     // enter pickup
     public void enterPickup(String value) {
-    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+
         WebElement input = wait.until(ExpectedConditions.elementToBeClickable(pickup));
+
         input.click();
+        input.clear();
         input.sendKeys(value);
-        try {
-            Thread.sleep(4000);
-            input.click();
-            input.sendKeys(Keys.ARROW_DOWN);
-            Thread.sleep(900);
-            input.sendKeys(Keys.ENTER);
-        } catch (Exception e) {}
+
+        // 🔥 Wait for suggestion list
+        WebElement firstOption = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.xpath("(//div[contains(@role,'listbox')]//div)[3]")
+        ));
+
+        // 🔥 Click first suggestion instead of keyboard
+        firstOption.click();
+
+        System.out.println("✅ Pickup selected");
     }
 
     // click check-box
@@ -70,25 +78,38 @@ public class CR_SearchPage extends baseclass {
         wait.until(ExpectedConditions.visibilityOf(drop));
     }
 
-    // enter drop
+//     enter drop
     public void enterDrop(String value) {
-    	WebElement input = new WebDriverWait(driver, Duration.ofSeconds(60))
-                .until(ExpectedConditions.elementToBeClickable(drop));
+
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(drop));
+
         input.click();
-        input.sendKeys(Keys.CONTROL + "a");
-        input.sendKeys(Keys.DELETE);
         input.clear();
         input.sendKeys(value);
-        try {
-            Thread.sleep(4000);
-            input.click();
-            input.sendKeys(Keys.ARROW_DOWN);
-            Thread.sleep(900);
-            input.sendKeys(Keys.ENTER);
-        } catch (Exception e) {}
-    }
 
-    // select date
+        // 🔥 Wait for suggestion list
+        WebElement firstOption = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.xpath("(//div[contains(@role,'listbox')]//div)[3]")
+        ));
+
+        firstOption.click();
+
+        System.out.println("✅ Drop selected");
+    }
+    
+    //enter invalid drop
+    public void enterInvalidDrop(String value) {
+
+        WebElement input = wait.until(ExpectedConditions.elementToBeClickable(drop));
+
+        input.click();
+        input.clear();
+        input.sendKeys(value);
+
+        System.out.println("⚠️ Invalid drop entered");
+    }
+    
+    //select date
     public void selectDate() {
     	datePicker.click();
 

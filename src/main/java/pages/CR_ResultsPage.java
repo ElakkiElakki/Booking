@@ -36,6 +36,7 @@ public class CR_ResultsPage extends baseclass {
     WebElement clearBtn; // clear filters
 
     // close popup
+    
     public void handlePopupIfPresent() {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(popupClose)).click();
