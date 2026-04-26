@@ -20,8 +20,9 @@ public class FH_FlightsHotelsSearchPage {
     By flightHotelTab = By.xpath("//span[contains(text(),'Flight + Hotel') or contains(text(),'Flights + Hotels')]");
     By departureInput = By.xpath("//input[@placeholder='City or airport']");
     By destinationBtn = By.xpath("(//button[@type='button'])[2]");
-    By destinationInput = By.xpath("//input[contains(@placeholder,'Where')]");
-    By searchBtn = By.xpath("//button[@type='submit']");
+    By destinationInput = By.xpath(
+    	    "//input[contains(@placeholder,'Where') or contains(@placeholder,'Destination') or contains(@aria-label,'Where') or contains(@aria-label,'Destination')]"
+    	);    By searchBtn = By.xpath("//button[@type='submit']");
 
     // ===== OPEN TAB =====
     public void openFlightHotelTab() {
@@ -30,7 +31,14 @@ public class FH_FlightsHotelsSearchPage {
 
         wait.until(ExpectedConditions.elementToBeClickable(flightHotelTab)).click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(destinationInput));
+        driver.get("https://www.booking.com/packages.html");
+
+        wait.until(d ->
+                d.findElements(By.xpath("//input")).size() > 0 ||
+                d.findElements(By.xpath("//button[contains(.,'Where') or contains(.,'Destination')]")).size() > 0
+        );
+
+        System.out.println("✅ Flight + Hotel page ready");
 
         handleCookies();
     }

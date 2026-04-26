@@ -65,11 +65,43 @@ public class CR_SearchPage extends baseclass {
     }
 
     // click check-box
+//    public void clickCheckbox() {
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkbox);
+//        wait.until(ExpectedConditions.visibilityOf(drop));
+//    }
     public void clickCheckbox() {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkbox);
-        wait.until(ExpectedConditions.visibilityOf(drop));
-    }
 
+        By checkboxLocator = By.xpath(
+            "//input[@name='drop-off-at-different-loc']" +
+            " | //label[contains(.,'Return car to different location')]" +
+            " | //label[contains(.,'different location')]"
+        );
+
+        By dropLocator = By.xpath(
+            "//input[@name='dropoff-location']" +
+            " | //input[contains(@placeholder,'Drop-off')]" +
+            " | //input[contains(@aria-label,'Drop-off')]"
+        );
+
+        try {
+            WebElement check = wait.until(
+                ExpectedConditions.presenceOfElementLocated(checkboxLocator)
+            );
+
+            ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", check
+            );
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", check);
+
+            System.out.println("Different drop-off checkbox clicked");
+
+        } catch (Exception e) {
+            System.out.println("Checkbox not found or already selected");
+        }
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(dropLocator));
+    }
     // enter drop
     public void enterDrop(String value) {
     	WebElement input = new WebDriverWait(driver, Duration.ofSeconds(60))

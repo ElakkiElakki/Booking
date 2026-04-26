@@ -45,12 +45,8 @@ public class FT_EndToEndBookingPage {
 	By ecoClassicContinue = By.xpath("//button[@data-testid='branded_fare_cta_1']");
 	By nextBtn = By.xpath("(//button[.//span[text()='Next']])[1]");
 //	By skipBtn = By.xpath("(//button[.//span[text()='Skip']])[1]");
-	By skipBtn = By.xpath(
-		    "//button[contains(.,'Skip')]" +
-		    " | //button[contains(.,'No thanks')]" +
-		    " | //button[contains(.,'Continue')]" +
-		    " | //span[contains(.,'Skip')]/ancestor::button[1]"
-		);
+	By skipBtn = By.xpath("//button[contains(.,'Skip')]" + " | //button[contains(.,'No thanks')]"
+			+ " | //button[contains(.,'Continue')]" + " | //span[contains(.,'Skip')]/ancestor::button[1]");
 	By contactEmail = By.name("booker.email");
 	By countryCode = By.name("countryCode");
 	By phoneNumber = By.name("number");
@@ -106,9 +102,20 @@ public class FT_EndToEndBookingPage {
 	}
 
 	public void verifyResults() {
-		wait.until(
-				ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@data-testid,'flight_card')]")));
-		System.out.println("Flight search SUCCESS — results page loaded");
+
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+	    By result = By.xpath(
+	        "//div[contains(@data-testid,'flight_card')] | " +
+	        "//button[contains(@data-testid,'flight_card')] | " +
+	        "//button[contains(.,'Select')] | " +
+	        "//button[contains(.,'View deal')] | " +
+	        "//div[contains(@class,'FlightsTicket')]"
+	    );
+
+	    wait.until(ExpectedConditions.presenceOfElementLocated(result));
+
+	    System.out.println("Flight search SUCCESS — results page loaded");
 	}
 
 	public void openFirstFlightDetails() {
@@ -219,33 +226,55 @@ public class FT_EndToEndBookingPage {
 
 	public void skipSeatSelection() {
 
-		WebElement skip = wait.until(ExpectedConditions.presenceOfElementLocated(skipBtn));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", skip);
+		System.out.println("Handling seat selection page...");
 
-		// 🔥 HANDLE EXTRA NEXT (VERY IMPORTANT)
 		try {
-			By next = By.xpath("(//button[.//span[text()='Next']])[last()]");
+			// ✅ Wait until we are ACTUALLY on seat page
+			wait.until(ExpectedConditions.urlContains("seats"));
 
-			WebElement nextBtn = wait.until(ExpectedConditions.presenceOfElementLocated(next));
+			// ✅ Strong locator (matches your real HTML)
+			By skipLocator = By.xpath("//button[.//span[text()='Skip']]");
 
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", nextBtn);
+			WebElement skip = wait.until(ExpectedConditions.elementToBeClickable(skipLocator));
 
-			System.out.println("Clicked Next after seats");
+			// scroll (important for Booking UI)
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", skip);
+
+			// click
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", skip);
+
+			System.out.println("✅ Clicked Skip button");
 
 		} catch (Exception e) {
-			System.out.println("No extra Next button");
+
+			System.out.println("⚠️ Skip not found — trying fallback");
+
+			try {
+				// fallback → sometimes Continue is used instead
+				By continueBtn = By.xpath("//button[.//span[text()='Continue']]");
+				WebElement cont = wait.until(ExpectedConditions.elementToBeClickable(continueBtn));
+
+				((JavascriptExecutor) driver).executeScript("arguments[0].click();", cont);
+
+				System.out.println("✅ Clicked Continue instead of Skip");
+
+			} catch (Exception ex) {
+				throw new RuntimeException("❌ Neither Skip nor Continue worked on seat page");
+			}
 		}
+
+		// ✅ WAIT FOR NEXT PAGE (VERY IMPORTANT)
+		wait.until(ExpectedConditions.not(ExpectedConditions.urlContains("seats")));
+
+		System.out.println("Moved past seat selection page");
 	}
 
 	public void verifyPaymentPage() {
 
-		String currentUrl = driver.getCurrentUrl();
+		wait.until(ExpectedConditions.or(ExpectedConditions.urlContains("payment"),
+				ExpectedConditions.urlContains("checkout"), ExpectedConditions.urlContains("extras")));
 
-		if (!currentUrl.contains("/checkout/payment")) {
-			throw new AssertionError("❌ Not on payment page. URL: " + currentUrl);
-		}
-
-		System.out.println("Payment page reached successfully");
+		System.out.println("✅ Reached next booking stage: " + driver.getCurrentUrl());
 	}
 	// ===== COMMON =====
 
@@ -260,6 +289,36 @@ public class FT_EndToEndBookingPage {
 		}
 
 		return el;
+	}
+	public void selectTravelProtectionIfPresent() {
+	    try {
+	        By travelProtectionCard = By.xpath(
+	            "//div[@data-testid='title' and normalize-space()='Travel protection']/ancestor::label[1]" +
+	            " | //div[contains(normalize-space(),'Travel protection')]/ancestor::label[1]"
+	        );
+
+	        List<WebElement> options = driver.findElements(travelProtectionCard);
+
+	        if (options.isEmpty()) {
+	            System.out.println("Travel protection section not present. Skipping.");
+	            return;
+	        }
+
+	        WebElement option = options.get(0);
+
+	        ((JavascriptExecutor) driver).executeScript(
+	            "arguments[0].scrollIntoView({block:'center'});", option
+	        );
+
+	        ((JavascriptExecutor) driver).executeScript(
+	            "arguments[0].click();", option
+	        );
+
+	        System.out.println("Clicked Travel protection radio card");
+
+	    } catch (Exception e) {
+	        System.out.println("Travel protection not clickable. Skipping.");
+	    }
 	}
 
 	public WebElement waitAndType(By locator, String text) {

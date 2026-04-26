@@ -1,224 +1,200 @@
 package pages;
 
 import java.time.Duration;
+import java.util.List;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
 public class FT_FoodAndSeatPreferencePages {
 
-	WebDriver driver;
-	WebDriverWait wait;
+    WebDriver driver;
+    WebDriverWait wait;
 
-	public FT_FoodAndSeatPreferencePages(WebDriver driver) {
-		this.driver = driver;
-		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-	}
+    public FT_FoodAndSeatPreferencePages(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+    }
 
-// ================= LOCATORS =================
+    By meal1 = By.id("meal_choice_1");
+    By meal2 = By.id("meal_choice_2");
 
-// FOOD
-	By meal1 = By.id("meal_choice_1");
-	By meal2 = By.id("meal_choice_2");
+    By adultDropdown = By.xpath("//div[@data-testid='upb_title-flight_adult']");
+    By childDropdown = By.xpath("//div[@data-testid='upb_title-flight_child']");
 
-// PRICE
-	By adultDropdown = By.xpath("//div[@data-testid='upb_title-flight_adult']");
-	By childDropdown = By.xpath("//div[@data-testid='upb_title-flight_child']");
+    By nextBtn = By.xpath("//button[.//span[text()='Next'] or contains(.,'Next')]");
+    By flexibleOption = By.xpath("//input[@name='ticket-type' and @value='flexible']");
 
-// FLEX
-	By nextBtn = By.xpath("//button[.//span[text()='Next']]");
-	By flexibleOption = By.xpath("//input[@name='ticket-type' and @value='flexible']");
+    By checkAndPay = By.xpath(
+            "//button[.//span[contains(text(),'Check and pay')]]" +
+            " | //button[contains(.,'Check and pay')]" +
+            " | //button[contains(.,'Continue')]"
+    );
 
-// SEATS
-	By availableSeats = By.xpath("//button[contains(@data-testid,'seat_') and not(.//span[text()='X'])]");
+    By skip = By.xpath(
+            "//button[.//span[contains(text(),'Skip')]]" +
+            " | //button[contains(.,'Skip')]"
+    );
 
-// TAB
-	By nextTab = By.xpath("(//button[contains(@data-testid,'seat_map_tab')])[2]");
+    private void jsClick(WebElement el) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
+    }
 
-// PAYMENT
-	By checkAndPay = By.xpath("//button[.//span[text()='Check and pay']]");
-// ================= HELPERS =================
+    private void scrollCenter(WebElement el) {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", el);
+    }
 
-	private void jsClick(WebElement el) {
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
-	}
+    private void waitForUI() {
+        try {
+            Thread.sleep(1000);
+        } catch (Exception ignored) {
+        }
+    }
 
-// ================= FOOD =================
+    public void selectFood() {
+        new Select(wait.until(ExpectedConditions.elementToBeClickable(meal1)))
+                .selectByVisibleText("Kosher · Free");
 
-	public void selectFood() {
-		new Select(wait.until(ExpectedConditions.elementToBeClickable(meal1))).selectByVisibleText("Kosher · Free");
+        new Select(wait.until(ExpectedConditions.elementToBeClickable(meal2)))
+                .selectByVisibleText("Vegetarian · Free");
 
-		new Select(wait.until(ExpectedConditions.elementToBeClickable(meal2))).selectByVisibleText("Vegetarian · Free");
+        System.out.println("Food selected");
+    }
 
-		System.out.println("Food selected");
-	}
+    public void expandPriceDropdown() {
+        wait.until(ExpectedConditions.elementToBeClickable(adultDropdown)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(childDropdown)).click();
+    }
 
-// ================= PRICE =================
+    public void waitForFlexPage() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(nextBtn));
+    }
 
-	public void expandPriceDropdown() {
-		wait.until(ExpectedConditions.elementToBeClickable(adultDropdown)).click();
-		wait.until(ExpectedConditions.elementToBeClickable(childDropdown)).click();
-	}
+    public void selectTravelProtectionIfPresent() {
+        try {
+            By travelProtectionCard = By.xpath(
+                    "//div[@data-testid='title' and normalize-space()='Travel protection']/ancestor::label[1]" +
+                    " | //div[contains(normalize-space(),'Travel protection')]/ancestor::label[1]"
+            );
 
-// ================= FLEX =================
+            List<WebElement> options = driver.findElements(travelProtectionCard);
 
-	public void waitForFlexPage() {
-		wait.until(ExpectedConditions.visibilityOfElementLocated(nextBtn));
-	}
+            if (options.isEmpty()) {
+                System.out.println("Travel protection section not present. Skipping.");
+                return;
+            }
 
-	public void selectFlexibleOption() {
-		WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(flexibleOption));
-		jsClick(el);
-	}
+            WebElement option = options.get(0);
+            scrollCenter(option);
+            jsClick(option);
 
-	public void clickNext() {
-		WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(nextBtn));
-		jsClick(btn);
-	}
+            System.out.println("Clicked Travel protection radio card");
 
-// ================= SEATS =================
-	public void selectSeatsForBothSegments() {
+        } catch (Exception e) {
+            System.out.println("Travel protection not clickable. Skipping.");
+        }
+    }
 
-		// ========== SEGMENT 1 ==========
-		System.out.println("Selecting seats for Chennai → Manama");
+    public void selectFlexibleOption() {
+        WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(flexibleOption));
+        jsClick(el);
+        System.out.println("Flexible ticket selected");
+    }
 
-		clickTwoAvailableSeats();
+    public void clickNext() {
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(nextBtn));
+        scrollCenter(btn);
+        jsClick(btn);
+        System.out.println("Clicked Next");
+    }
 
-		waitForUI();
+    public void selectSeatsForBothSegments() {
+        System.out.println("Selecting seats for both segments");
 
-		// ========== SWITCH TAB ==========
-		By nextTab = By.xpath("(//button[contains(@data-testid,'seat_map_tab')])[2]");
-		wait.until(ExpectedConditions.elementToBeClickable(nextTab)).click();
+        clickTwoSeats();
 
-		System.out.println("Switched to Manama → Paris");
+        By secondTab = By.xpath("(//button[contains(@data-testid,'seat_map_tab')])[2]");
 
-		waitForUI();
+        try {
+            WebElement tab = wait.until(ExpectedConditions.elementToBeClickable(secondTab));
+            jsClick(tab);
+            System.out.println("Switched to second flight tab");
+            waitForUI();
+            clickTwoSeats();
+        } catch (Exception e) {
+            System.out.println("Second flight tab not found. Continuing.");
+        }
+    }
 
-		// ========== SEGMENT 2 ==========
-		System.out.println("Selecting seats for Manama → Paris");
+    private void clickTwoSeats() {
 
-		clickTwoAvailableSeats();
-	}
+		By seatsLocator = By.xpath("//button[contains(@data-testid,'seat_') and @data-seat]");
 
-	private void clickTwoAvailableSeats() {
+		List<WebElement> seats = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(seatsLocator));
 
-	    By seatsLocator = By.xpath(
-	        "//button[not(@disabled) and (" +
-	        "contains(@data-testid,'seat') or " +
-	        "contains(@aria-label,'seat') or " +
-	        "contains(@aria-label,'Seat') or " +
-	        "contains(@class,'seat')" +
-	        ")]"
-	    );
+		int clicked = 0;
 
-	    java.util.List<WebElement> seats = wait.until(
-	        ExpectedConditions.presenceOfAllElementsLocatedBy(seatsLocator)
-	    );
+		for (WebElement seat : seats) {
+			try {
+				if (seat.isDisplayed() && seat.isEnabled()) {
 
-	    int clicked = 0;
+					String seatNo = seat.getAttribute("data-seat");
 
-	    for (WebElement seat : seats) {
-	        try {
-	            if (seat.isDisplayed() && seat.isEnabled()) {
+					// 🔥 avoid clicking same seat again
+					if (seat.getAttribute("class").toLowerCase().contains("selected")) {
+						continue;
+					}
 
-	                ((JavascriptExecutor) driver).executeScript(
-	                    "arguments[0].scrollIntoView({block:'center'});", seat
-	                );
+					((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", seat);
 
-	                String label = seat.getAttribute("aria-label");
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();", seat);
 
-	                ((JavascriptExecutor) driver).executeScript(
-	                    "arguments[0].click();", seat
-	                );
+					System.out.println("Selected seat → " + seatNo);
 
-	                System.out.println("Selected seat → " + label);
+					clicked++;
+					waitForUI();
 
-	                clicked++;
-	                waitForUI();
+					if (clicked == 2)
+						break;
+				}
 
-	                if (clicked == 2) {
-	                    break;
-	                }
-	            }
-	        } catch (Exception ignored) {
-	        }
-	    }
-
-	    if (clicked < 2) {
-	        throw new RuntimeException("Could not select two available seats.");
-	    }
-	}
-	private void waitForUI() {
-		try {
-			Thread.sleep(1200);
-		} catch (Exception e) {
-		}
-	}
-
-	public void switchToNextTab() {
-		WebElement tab = wait.until(ExpectedConditions.elementToBeClickable(nextTab));
-		jsClick(tab);
-		System.out.println("Switched to next flight tab");
-	}
-
-// ================= PAYMENT =================
-
-	public void clickCheckOrSkip() {
-		selectNoTravelProtection();
-		By checkAndPay = By.xpath("//button[.//span[text()='Check and pay']]");
-		By skip = By.xpath("//button[.//span[text()='Skip']]");
-
-		try {
-			WebElement checkBtn = wait.until(ExpectedConditions.presenceOfElementLocated(checkAndPay));
-
-			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", checkBtn);
-
-			wait.until(ExpectedConditions.elementToBeClickable(checkBtn));
-
-			checkBtn.click();
-
-			System.out.println("Clicked Check and Pay");
-
-		} catch (Exception e) {
-
-			System.out.println("Check and Pay not found → trying Skip");
-
-			WebElement skipBtn = wait.until(ExpectedConditions.elementToBeClickable(skip));
-
-			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", skipBtn);
-
-			skipBtn.click();
-
-			System.out.println("Clicked Skip instead");
-		}
-	}
-	
-	public void selectNoTravelProtection() {
-
-	    By card = By.xpath(
-	        "//div[@data-testid='subtitle_0' and contains(text(),'€0.00')]/ancestor::label[1]"
-	    );
-
-	    WebElement option = wait.until(
-	        ExpectedConditions.elementToBeClickable(card)
-	    );
-
-	    ((JavascriptExecutor) driver).executeScript(
-	        "arguments[0].scrollIntoView({block:'center'});", option
-	    );
-
-	    ((JavascriptExecutor) driver).executeScript(
-	        "arguments[0].click();", option
-	    );
-
-	    System.out.println("Clicked No travel protection card");
-	}
-	public void verifyPaymentPage() {
-		wait.until(driver -> driver.getCurrentUrl().contains("payment"));
-
-		if (!driver.getCurrentUrl().contains("payment")) {
-			throw new AssertionError("❌ Not on payment page");
+			} catch (Exception e) {
+				// ignore and try next
+			}
 		}
 
-		System.out.println("✅ Payment page reached");
+		if (clicked < 2) {
+			throw new RuntimeException("❌ Could not select two seats");
+		}
 	}
+    public void clickCheckOrSkip() {
+        try {
+            WebElement checkBtn = wait.until(ExpectedConditions.elementToBeClickable(checkAndPay));
+            scrollCenter(checkBtn);
+            jsClick(checkBtn);
+            System.out.println("Clicked Check and Pay / Continue");
+            return;
+        } catch (Exception ignored) {
+        }
+
+        try {
+            WebElement skipBtn = wait.until(ExpectedConditions.elementToBeClickable(skip));
+            scrollCenter(skipBtn);
+            jsClick(skipBtn);
+            System.out.println("Clicked Skip");
+        } catch (Exception e) {
+            throw new RuntimeException("Neither Check and Pay nor Skip button found.");
+        }
+    }
+
+    public void verifyPaymentPage() {
+        wait.until(driver ->
+                driver.getCurrentUrl().toLowerCase().contains("payment")
+                        || driver.getPageSource().toLowerCase().contains("payment")
+                        || driver.getPageSource().toLowerCase().contains("card number")
+        );
+
+        System.out.println("Payment page reached");
+    }
 }

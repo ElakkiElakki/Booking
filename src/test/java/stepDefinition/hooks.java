@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import base.pages;
 import util.AllFunctionalities;
 
 import java.time.Duration;
@@ -17,7 +19,7 @@ import java.util.List;
 public class hooks {
 
     private static final int MANUAL_OTP_WAIT_SECONDS = 120;
-    private static final int DEFAULT_WAIT_SECONDS = 8;
+    private static final int DEFAULT_WAIT_SECONDS = 15;
     
     //added for single login
     private static boolean alreadyLoggedIn = false;
@@ -25,6 +27,7 @@ public class hooks {
     @Before(order = 1)
     public void setUp() {
         AllFunctionalities.launchBrowser();
+        pages.loadAllPages(AllFunctionalities.getDriver());
     }
 
     @Before(value = "@Login", order = 2)
@@ -35,6 +38,7 @@ public class hooks {
     	        return;
     	    }
 //end
+    	 
     	 WebDriver driver = AllFunctionalities.getDriver();
         AllFunctionalities af = new AllFunctionalities(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAIT_SECONDS));
@@ -62,7 +66,24 @@ public class hooks {
         alreadyLoggedIn = true;
         System.out.println("Login completed successfully from Hooks.");
     }
+    @Before(value = "@Login", order = 3)
+    public void openFreshPageBeforeScenario() {
+        if (!alreadyLoggedIn) return;
 
+        WebDriver driver = AllFunctionalities.getDriver();
+
+        try {
+            driver.get("https://www.booking.com/flights/");
+            new WebDriverWait(driver, Duration.ofSeconds(20))
+                    .until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+
+            handleCookies(driver);
+
+            System.out.println("Fresh flights page opened. Login kept.");
+        } catch (Exception e) {
+            System.out.println("Fresh page open failed: " + e.getMessage());
+        }
+    }
     private void handleCookies(WebDriver driver) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
@@ -343,11 +364,21 @@ public class hooks {
     }
 
     @After
-    public void tearDown() {
-//        AllFunctionalities.closeBrowser();
+    public void afterScenario() {
+        System.out.println("Scenario completed. Browser kept for next scenario.");
     }
+    //Report start
+    
+    
+    //End
     @AfterAll
     public static void closeAfterAllScenarios() {
         System.out.println("All scenarios completed.");
+
+        try {
+            AllFunctionalities.closeBrowser();
+        } catch (Exception e) {
+            System.out.println("Browser close failed: " + e.getMessage());
+        }
     }
 }

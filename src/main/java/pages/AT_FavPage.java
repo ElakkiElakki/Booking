@@ -37,16 +37,22 @@ public class AT_FavPage extends baseclass {
     );
 
     private final By profileIcon = By.xpath(
-            "//button[@data-testid='header-profile-mobile-avatar']" +
-            " | //div[@data-testid='header-profile-mobile-avatar']/ancestor::button[1]" +
-            " | //span[.//div[@data-testid='header-profile-mobile-avatar']]/ancestor::button[1]" +
-            " | //img[contains(@src,'avatar.png')]/ancestor::button[1]"
+//            "//button[@data-testid='header-profile-mobile-avatar']" +
+//            " | //div[@data-testid='header-profile-mobile-avatar']/ancestor::button[1]" +
+//            " | //span[.//div[@data-testid='header-profile-mobile-avatar']]/ancestor::button[1]" +
+//            " | //img[contains(@src,'avatar.png')]/ancestor::button[1]"
+"//button[@data-testid='header-profile-menu-button']" +
+" | //button[@data-testid='header-profile-mobile-avatar']" +
+" | //button[contains(@aria-label,'account')]" +
+" | //button[contains(@aria-label,'profile')]"
     );
 
     private final By savedOption = By.xpath(
-            "//span[normalize-space()='Saved']" +
-            " | //span[contains(normalize-space(),'Saved')]/ancestor::a[1]" +
-            " | //a[.//span[normalize-space()='Saved']]"
+//            "//span[normalize-space()='Saved']" +
+//            " | //span[contains(normalize-space(),'Saved')]/ancestor::a[1]" +
+//            " | //a[.//span[normalize-space()='Saved']]"
+"//a[contains(.,'Saved') or contains(.,'Favourites') or contains(.,'Favorites')]" +
+" | //span[contains(.,'Saved') or contains(.,'Favourites') or contains(.,'Favorites')]/ancestor::a[1]"
     );
 
     public AT_FavPage(WebDriver driver) {
@@ -55,7 +61,7 @@ public class AT_FavPage extends baseclass {
 
     public void openAttractionsPage() {
         driver.get("https://www.booking.com/attractions/");
-        af.hardWait(2);
+        af.hardWait(1);
     }
 
     public void searchDestination(String destination) {
@@ -66,7 +72,7 @@ public class AT_FavPage extends baseclass {
         field.sendKeys(Keys.DELETE);
         field.sendKeys(destination);
 
-        af.hardWait(3);
+        af.hardWait(1);
 
         List<WebElement> suggestions = driver.findElements(By.xpath(
                 "//li[@role='option']" +
@@ -82,7 +88,7 @@ public class AT_FavPage extends baseclass {
                         && suggestion.getText().toLowerCase().contains(destination.toLowerCase())) {
 
                     suggestion.click();
-                    af.hardWait(2);
+                    af.hardWait(1);
                     clickSearchButton();
                     searchResultUrl = driver.getCurrentUrl();
                     return;
@@ -98,7 +104,7 @@ public class AT_FavPage extends baseclass {
         } catch (Exception ignored) {
         }
 
-        af.hardWait(2);
+        af.hardWait(1);
         clickSearchButton();
         searchResultUrl = driver.getCurrentUrl();
     }
@@ -130,7 +136,7 @@ public class AT_FavPage extends baseclass {
                     }
 
                     System.out.println("Search button clicked using locator: " + locator);
-                    af.hardWait(5);
+                    af.hardWait(1);
                     return;
                 }
             } catch (Exception ignored) {
@@ -187,7 +193,7 @@ public class AT_FavPage extends baseclass {
 
     public void goBackToSearchResultsPage() {
         driver.get(searchResultUrl);
-        af.hardWait(5);
+        af.hardWait(1);
 
         System.out.println("Returned to search results page: " + driver.getCurrentUrl());
     }
@@ -200,7 +206,7 @@ public class AT_FavPage extends baseclass {
 
         af.hardWait(1);
         af.jsClick(heart);
-        af.hardWait(3);
+        af.hardWait(1);
 
         System.out.println("Same heart deselected for: " + attractionName);
     }
@@ -219,7 +225,7 @@ public class AT_FavPage extends baseclass {
             af.jsClick(profile);
         }
 
-        af.hardWait(2);
+        af.hardWait(1);
 
         WebElement saved = af.waitForVisible(savedOption);
 
@@ -229,19 +235,16 @@ public class AT_FavPage extends baseclass {
             af.jsClick(saved);
         }
 
-        af.hardWait(5);
+        af.hardWait(1);
 
         System.out.println("Saved page URL: " + driver.getCurrentUrl());
     }
 
     public boolean isSelectedAttractionDisplayedInFavPage() {
         try {
-            af.hardWait(5);
+            af.hardWait(1);
 
             String pageText = driver.findElement(By.tagName("body")).getText();
-
-            System.out.println("Validating saved attraction name: " + attractionName);
-            System.out.println("Saved page body text: " + pageText);
 
             return pageText.toLowerCase().contains(attractionName.toLowerCase());
 
@@ -252,12 +255,9 @@ public class AT_FavPage extends baseclass {
 
     public boolean isSelectedAttractionNotDisplayedInFavPage() {
         try {
-            af.hardWait(5);
+            af.hardWait(1);
 
             String pageText = driver.findElement(By.tagName("body")).getText();
-
-            System.out.println("Validating removed attraction name: " + attractionName);
-            System.out.println("Saved page body text after remove: " + pageText);
 
             return !pageText.toLowerCase().contains(attractionName.toLowerCase());
 

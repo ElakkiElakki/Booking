@@ -28,7 +28,6 @@ public class FH_SearchNegativeSteps {   // ✅ rename class (important)
             page.enterDestination(dest);
         }
     }
-
     @Then("system should handle invalid search result")
     public void validate_invalid() {
         page.verifyInvalidSearch();

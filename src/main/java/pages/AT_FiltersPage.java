@@ -31,7 +31,7 @@ public class AT_FiltersPage extends baseclass {
 
     public void openAttractionsPage() {
         driver.get("https://www.booking.com/attractions/");
-        af.hardWait(2);
+        af.hardWait(1);
     }
 
     public void enterDestination(String destination) {
@@ -41,11 +41,11 @@ public class AT_FiltersPage extends baseclass {
         destinationBox.sendKeys(Keys.DELETE);
         destinationBox.sendKeys(destination);
 
-        af.hardWait(2);
+        af.hardWait(1);
         destinationBox.sendKeys(Keys.ARROW_DOWN);
         af.hardWait(1);
         destinationBox.sendKeys(Keys.ENTER);
-        af.hardWait(2);
+        af.hardWait(1);
     }
 
     public void clickSearch() {
@@ -55,7 +55,7 @@ public class AT_FiltersPage extends baseclass {
         } catch (Exception e) {
             af.jsClick(button);
         }
-        af.hardWait(4);
+        af.hardWait(1);
     }
 
     public boolean isResultsPageDisplayed() {
@@ -70,28 +70,24 @@ public class AT_FiltersPage extends baseclass {
     public void selectCategoryFilter(String category) {
         WebElement element = findClickableFilter(category);
         scrollAndClick(element);
-        af.hardWait(3);
         System.out.println("Category filter clicked: " + category);
     }
 
     public void selectReviewScore(String reviewScore) {
         WebElement element = findClickableReviewFilter(reviewScore);
         scrollAndClick(element);
-        af.hardWait(3);
         System.out.println("Review score filter clicked: " + reviewScore);
     }
 
     public void selectTimeOfDay(String timeOfDay) {
         WebElement element = findClickableFilter(timeOfDay);
         scrollAndClick(element);
-        af.hardWait(3);
         System.out.println("Time of day filter clicked: " + timeOfDay);
     }
 
     public void clickLowestPriceSort() {
         WebElement element = findClickableSort("Lowest price");
         scrollAndClick(element);
-        af.hardWait(4);
         System.out.println("Lowest price sort clicked.");
     }
 

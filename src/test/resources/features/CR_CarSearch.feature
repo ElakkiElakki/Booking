@@ -1,4 +1,4 @@
-@Login
+
 Feature: Car Rental Search Validation
 
 Scenario Outline: Validate car rental search with pickup and drop details
@@ -12,5 +12,5 @@ Then car rental result should be "<expectedResult>"
 Examples:
 | testCaseId | pickupType | pickupValue | dropType | dropValue        | expectedResult |
 | CR01       | empty      |             | empty    |                  | validation     |
-| CR02       | valid      | Dubai       | invalid  | @@@###           | validation     |
-| CR03       | valid      | Dubai       | valid    | Dubai Downtown   | success        |
+| CR02       | valid      | Dubai International Airport (DXB), Dubai, United Arab Emirates       | invalid  | @@@###           | validation     |
+| CR03       | valid      | Dubai International Airport (DXB), Dubai, United Arab Emirates       | valid    | Dubai Downtown   | success        |

@@ -13,7 +13,7 @@ Feature: Attractions Filters Validation
     When user enters destination "Amsterdam"
     And user clicks attractions search button for filters
     And user selects category filter "Nature & outdoor"
-    And user selects review score filter "4 and up"
+    And user selects review score filter "9 and up"
     And user selects time of day filter "Afternoon"
     Then attractions results should match selected filters
 

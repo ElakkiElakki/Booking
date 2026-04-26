@@ -1,6 +1,6 @@
-@Login
 Feature: Seat selection simple flow
 
+  @Login
   Scenario: Select seats for both segments and proceed to payment
     Given user launches booking homepage for flights
     When user opens flights section
@@ -25,8 +25,6 @@ Feature: Seat selection simple flow
     Then user lands on flexibility page
     When user selects flexible ticket option
     And user clicks next
-    When user selects two seats
-    And user switches to next flight tab
-    And user selects two seats
-    When user proceeds to payment
-    Then user should land on payment page
+    When user selects two flight seats
+    And user proceeds to flight payment
+    Then user should land on flight payment page

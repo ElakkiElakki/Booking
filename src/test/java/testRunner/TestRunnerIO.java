@@ -6,19 +6,19 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
 		features = {
 			    // Attractions (AT)
-//			    "src/test/resources/features/AT_End_To_End.feature",
+//			    "src/test/resources/features/AT_End_To_End.feature",//failed
 //			    "src/test/resources/features/AT_Fav.feature",
 //			    "src/test/resources/features/AT_Filters.feature",
 //			    "src/test/resources/features/AT_Gallery.feature",
 //			    "src/test/resources/features/AT_Search.feature",
 
 			    // Car Rental (CR)
-//			    "src/test/resources/features/CR_CarBooking.feature",
-//			    "src/test/resources/features/CR_CarDetails.feature",
-//			    "src/test/resources/features/CR_CarExtras.feature",
-//			    "src/test/resources/features/CR_CarProtection.feature",
-//			    "src/test/resources/features/CR_CarResults.feature",
-//			    "src/test/resources/features/CR_CarSearch.feature",
+			    "src/test/resources/features/CR_CarBooking.feature",
+			    "src/test/resources/features/CR_CarDetails.feature",
+			    "src/test/resources/features/CR_CarExtras.feature",
+			    "src/test/resources/features/CR_CarProtection.feature",//2 fails
+			    "src/test/resources/features/CR_CarResults.feature", //1 pass,2 fail
+			    "src/test/resources/features/CR_CarSearch.feature",//1 pass ,2 fail
 
 			    // Flights + Hotels (FH)
 //			    "src/test/resources/features/FH_EndToEnd.feature",
@@ -29,11 +29,11 @@ import io.cucumber.testng.CucumberOptions;
 //			    "src/test/resources/features/FH_SearchNegative.feature",
 
 			    // Flights (FT)
-//			    "src/test/resources/features/FT_EndToEndBooking.feature",
-//			    "src/test/resources/features/FT_FlightOptions.feature",
+//			    "src/test/resources/features/FT_EndToEndBooking.feature", 
+//			    "src/test/resources/features/FT_FlightOptions.feature",   
 //			    "src/test/resources/features/FT_FoodAndSeatPreference.feature",
-//			    "src/test/resources/features/FT_SearchingFlights.feature",     //passed
-			    "src/test/resources/features/FT_TravellerDetails.feature",
+//			    "src/test/resources/features/FT_SearchingFlights.feature",     
+//			    "src/test/resources/features/FT_TravellerDetails.feature",
 
 			    // Stays (ST)
 //			    "src/test/resources/features/ST_Booking.feature",

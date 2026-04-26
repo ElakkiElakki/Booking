@@ -35,7 +35,7 @@ public class AT_GalleryPage extends baseclass {
 
     public void openAttractionsPage() {
         driver.get("https://www.booking.com/attractions/");
-        af.hardWait(2);
+        af.hardWait(1);
     }
 
     public void searchDestination(String destination) {
@@ -45,7 +45,7 @@ public class AT_GalleryPage extends baseclass {
         field.sendKeys(Keys.DELETE);
         field.sendKeys(destination);
 
-        af.hardWait(3);
+        af.hardWait(1);
 
         List<WebElement> suggestions = driver.findElements(By.xpath(
                 "//li[@role='option']" +
@@ -60,7 +60,7 @@ public class AT_GalleryPage extends baseclass {
                         && suggestion.getText() != null
                         && suggestion.getText().toLowerCase().contains(destination.toLowerCase())) {
                     suggestion.click();
-                    af.hardWait(2);
+                    af.hardWait(1);
                     clickSearchButton();
                     return;
                 }
@@ -75,7 +75,7 @@ public class AT_GalleryPage extends baseclass {
         } catch (Exception ignored) {
         }
 
-        af.hardWait(2);
+        af.hardWait(1);
         clickSearchButton();
     }
 
@@ -111,7 +111,7 @@ public class AT_GalleryPage extends baseclass {
                         }
 
                         System.out.println("Search button clicked using locator: " + locator);
-                        af.hardWait(5);
+                        af.hardWait(1);
                         return;
                     } catch (Exception ignored) {
                     }
@@ -124,7 +124,7 @@ public class AT_GalleryPage extends baseclass {
     }
 
     public void clickFirstSeeAvailabilityFromResults() {
-        af.hardWait(5);
+        af.hardWait(1);
 
         List<By> resultLocators = List.of(
                 By.xpath("(//button[contains(.,'See availability')])[1]"),
@@ -159,7 +159,7 @@ public class AT_GalleryPage extends baseclass {
                 }
 
                 System.out.println("Clicked first availability button from results page using: " + locator);
-                af.hardWait(5);
+                af.hardWait(1);
                 return;
             } catch (Exception ignored) {
             }

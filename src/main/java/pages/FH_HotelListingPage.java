@@ -1,6 +1,8 @@
 package pages;
 
 import java.time.Duration;
+import java.util.Set;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
@@ -17,14 +19,9 @@ public class FH_HotelListingPage {
     // ✅ First hotel
     private By firstHotelLink = By.xpath("(//a[@data-testid='details'])[1]");
 
-    // ✅ CORRECT locator (based on your HTML)
-    private By continueBtn = By.xpath("//button[@data-testid='continue-button']");
-
-    // ================= NEW METHODS =================
-
+    // ================= MAP =================
     public void toggleMapDesktop() throws InterruptedException {
 
-        // Hide Map
         By hideMap = By.xpath("//button[text()='Hide map']");
         WebElement hideBtn = wait.until(ExpectedConditions.elementToBeClickable(hideMap));
 
@@ -34,7 +31,6 @@ public class FH_HotelListingPage {
 
         Thread.sleep(2000);
 
-        // Show Map
         By showMap = By.xpath("//button[text()='Show map']");
         WebElement showBtn = wait.until(ExpectedConditions.elementToBeClickable(showMap));
 
@@ -45,9 +41,9 @@ public class FH_HotelListingPage {
         Thread.sleep(2000);
     }
 
+    // ================= FILTER =================
     public void applyFiveStarFilter() throws InterruptedException {
 
-        // Open Stars dropdown
         By starsBtn = By.id("Pill-StarsContainer");
         WebElement stars = wait.until(ExpectedConditions.elementToBeClickable(starsBtn));
 
@@ -55,14 +51,12 @@ public class FH_HotelListingPage {
         stars.click();
         System.out.println("✅ Stars dropdown opened");
 
-        // Select 5 stars
         By fiveStar = By.id("exp_elem_hotel_stars_5");
         WebElement starOption = wait.until(ExpectedConditions.elementToBeClickable(fiveStar));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", starOption);
         System.out.println("✅ 5 Stars selected");
 
-        // Click Apply
         By applyBtn = By.xpath("//button[text()='Apply']");
         WebElement apply = wait.until(ExpectedConditions.elementToBeClickable(applyBtn));
 
@@ -72,9 +66,9 @@ public class FH_HotelListingPage {
         Thread.sleep(3000);
     }
 
+    // ================= SORT =================
     public void sortByLowestPrice() throws InterruptedException {
 
-        // Open Sort dropdown
         By sortBtn = By.id("Pill-SortContainer");
         WebElement sort = wait.until(ExpectedConditions.elementToBeClickable(sortBtn));
 
@@ -82,7 +76,6 @@ public class FH_HotelListingPage {
         sort.click();
         System.out.println("✅ Sort dropdown opened");
 
-        // Select Price lowest
         By lowestPrice = By.id("label_sort_price_asc");
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(lowestPrice));
 
@@ -92,55 +85,75 @@ public class FH_HotelListingPage {
         Thread.sleep(3000);
     }
 
-    // ================= EXISTING =================
-
+    // ================= SELECT HOTEL =================
     public void selectFirstHotel() {
 
         System.out.println("⏳ Waiting for hotel list...");
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-            By.xpath("//a[@data-testid='details']")
-        ));
+        wait.until(driver ->
+            driver.findElements(By.xpath("//a[@data-testid='details']")).size() > 3
+        );
 
-        WebElement hotelLink = wait.until(
+        WebElement hotel = wait.until(
             ExpectedConditions.elementToBeClickable(firstHotelLink)
         );
 
         ((JavascriptExecutor) driver).executeScript(
-            "arguments[0].scrollIntoView({block:'center'});", hotelLink
+            "arguments[0].scrollIntoView({block:'center'});", hotel
         );
 
-        try { Thread.sleep(1000); } catch (Exception ignored) {}
+        // 🔥 STORE OLD WINDOWS (IMPORTANT)
+        Set<String> oldWindows = driver.getWindowHandles();
 
-        ((JavascriptExecutor) driver).executeScript(
-            "arguments[0].click();", hotelLink
-        );
+        System.out.println("👉 Before click URL: " + driver.getCurrentUrl());
+
+        // CLICK
+        try {
+            hotel.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", hotel);
+        }
 
         System.out.println("✅ First hotel clicked");
 
-        // ✅ WAIT FOR NEW TAB
-        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        // 🔥 WAIT FOR NEW TAB OR SAME TAB NAVIGATION
+        try {
+            // wait for new tab
+            wait.until(ExpectedConditions.numberOfWindowsToBe(oldWindows.size() + 1));
 
-        String currentWindow = driver.getWindowHandle();
+            // get new tab
+            Set<String> newWindows = driver.getWindowHandles();
+            newWindows.removeAll(oldWindows);
 
-        for (String window : driver.getWindowHandles()) {
-            if (!window.equals(currentWindow)) {
-                driver.switchTo().window(window);
-                break;
-            }
+            String newTab = newWindows.iterator().next();
+            driver.switchTo().window(newTab);
+
+            System.out.println("✅ Switched to correct new tab");
+
+        } catch (TimeoutException e) {
+            // fallback: same tab navigation
+            System.out.println("⚠️ No new tab, checking same tab navigation...");
         }
-    }
 
+        // 🔥 FINAL VALIDATION (WORKS FOR BOTH CASES)
+        wait.until(ExpectedConditions.or(
+            ExpectedConditions.urlContains("hotelDetail"),
+            ExpectedConditions.urlContains("pageType=hotelDetail")
+        ));
+
+        System.out.println("👉 After click URL: " + driver.getCurrentUrl());
+    }
+    // ================= VERIFY ROOM PAGE =================
     public void verifyRoomPage() {
 
         System.out.println("⏳ Waiting for room page...");
 
-        wait.until(ExpectedConditions.or(
-                ExpectedConditions.urlContains("hotel"),
-                ExpectedConditions.presenceOfElementLocated(By.tagName("body"))
+        wait.until(ExpectedConditions.and(
+            ExpectedConditions.urlContains("pageType=hotelDetail"),
+            ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("button[data-testid='continue-button']")
+            )
         ));
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(continueBtn));
 
         System.out.println("✅ Room page displayed");
     }

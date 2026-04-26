@@ -72,8 +72,10 @@ public class FT_EndToEndBookingSteps {
 
 	@When("user selects ticket type and proceeds")
 	public void user_selects_ticket_type_and_proceeds() {
-		flightPage.selectTicketType();
-		flightPage.clickNextAfterTicket();
+	    flightPage.selectTicketType();
+	    flightPage.clickNextAfterTicket();
+	    flightPage.selectTravelProtectionIfPresent();
+	    flightPage.clickNextAfterTicket();
 	}
 
 	@When("user skips seat selection")

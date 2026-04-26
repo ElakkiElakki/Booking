@@ -44,7 +44,8 @@ public class AT_End_To_End extends baseclass {
     );
     
     private final By plusSvgButton = By.xpath(
-    		"//span[contains(normalize-space(),'2 adults, 1 child')]"
+//    		"//span[contains(normalize-space(),'2 adults, 1 child')]"
+    	    "(//div[@data-testid='quick-ticket-selection']//label)[1]"
     	);
 
     private final By nextButton = By.xpath(
@@ -71,7 +72,7 @@ public class AT_End_To_End extends baseclass {
 
     public void launchAttractionsForGalleryImage() {
         driver.get("https://www.booking.com/attractions/");
-        af.hardWait(3);
+        af.hardWait(1);
     }
 
     public void searchDestinationForGalleryImage(String destination) {
@@ -82,7 +83,7 @@ public class AT_End_To_End extends baseclass {
         field.sendKeys(Keys.DELETE);
         field.sendKeys(destination);
 
-        af.hardWait(3);
+        af.hardWait(1);
 
         List<WebElement> suggestions = driver.findElements(By.xpath(
                 "//li[@role='option']" +
@@ -97,7 +98,7 @@ public class AT_End_To_End extends baseclass {
                         && suggestion.getText() != null
                         && suggestion.getText().toLowerCase().contains(destination.toLowerCase())) {
                     suggestion.click();
-                    af.hardWait(2);
+                    af.hardWait(1);
                     break;
                 }
             } catch (Exception ignored) {
@@ -136,7 +137,7 @@ public class AT_End_To_End extends baseclass {
                     }
 
                     System.out.println("Search button clicked using: " + locator);
-                    af.hardWait(5);
+                    af.hardWait(1);
                     return;
                 }
             } catch (Exception ignored) {
@@ -147,7 +148,7 @@ public class AT_End_To_End extends baseclass {
     }
 
     public void openFirstDetailsPageForGalleryImage() {
-        af.hardWait(5);
+        af.hardWait(1);
 
         List<By> detailLocators = List.of(
                 By.xpath("(//a[contains(@href,'/attractions/') and not(contains(@href,'searchresults')) and not(contains(@href,'index'))])[1]"),
@@ -185,7 +186,7 @@ public class AT_End_To_End extends baseclass {
                         }
                     }
 
-                    af.hardWait(5);
+                    af.hardWait(1);
 
                     Set<String> newWindows = driver.getWindowHandles();
 
@@ -222,7 +223,7 @@ public class AT_End_To_End extends baseclass {
             for (WebElement close : closeButtons) {
                 if (close.isDisplayed()) {
                     af.jsClick(close);
-                    af.hardWait(2);
+                    af.hardWait(1);
                     System.out.println("Popup closed.");
                     return;
                 }
@@ -232,7 +233,7 @@ public class AT_End_To_End extends baseclass {
     }
 
     public void clickGalleryImageInDetailsPage() {
-        af.hardWait(5);
+        af.hardWait(1);
 
         closeAnyPopupIfPresent();
 
@@ -249,7 +250,7 @@ public class AT_End_To_End extends baseclass {
             af.jsClick(image);
         }
 
-        af.hardWait(4);
+        af.hardWait(1);
 
         System.out.println("Clicked actual gallery image.");
     }
@@ -290,7 +291,7 @@ public class AT_End_To_End extends baseclass {
             af.jsClick(button);
         }
 
-        af.hardWait(3);
+        af.hardWait(1);
 
         System.out.println("Clicked Select Tickets button.");
     }
@@ -310,7 +311,7 @@ public class AT_End_To_End extends baseclass {
             af.jsClick(button);
         }
 
-        af.hardWait(3);
+        af.hardWait(1);
 
         System.out.println("Clicked final Select button.");
     }
@@ -331,7 +332,7 @@ public class AT_End_To_End extends baseclass {
                 "arguments[0].click();", button);
         }
 
-        af.hardWait(2);
+        af.hardWait(1);
         System.out.println("Clicked SVG plus button.");
     }
     public void clickNextButton() {
@@ -349,7 +350,7 @@ public class AT_End_To_End extends baseclass {
             af.jsClick(next);
         }
 
-        af.hardWait(3);
+        af.hardWait(1);
 
         System.out.println("Clicked Next button.");
     }
@@ -375,7 +376,7 @@ public class AT_End_To_End extends baseclass {
             af.jsClick(button);
         }
 
-        af.hardWait(5);
+        af.hardWait(1);
 
         String afterUrl = driver.getCurrentUrl();
 

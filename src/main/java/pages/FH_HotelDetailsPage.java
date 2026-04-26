@@ -24,7 +24,14 @@ public class FH_HotelDetailsPage {
     // ===== VERIFY PAGE =====
     public void verifyRoomPage() {
         System.out.println("⏳ Waiting for hotel details page...");
-        wait.until(ExpectedConditions.urlContains("hotel"));
+
+        wait.until(ExpectedConditions.and(
+            ExpectedConditions.urlContains("hotelDetail"),
+            ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("button[data-testid='continue-button']")
+            )
+        ));
+
         System.out.println("✅ Hotel details page displayed");
     }
     public void verifyFlightPage() {
