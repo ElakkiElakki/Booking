@@ -5,6 +5,7 @@ import util.AllFunctionalities;
 
 import java.time.Duration;
 
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -35,24 +36,56 @@ public class CR_SearchSteps {
         }
     }
 
-    // enter drop value
+//    // enter drop value
+//    @When("user enters {string} drop as {string}")
+//    public void enter_drop(String type, String value) {
+//
+//        if (type.equalsIgnoreCase("valid")) {
+//            pages.searchPage.clickCheckbox(); // enable drop field
+//            pages.searchPage.enterDrop(value); // enter drop
+//            pages.searchPage.selectDate(); // select dates
+//        } else if (type.equalsIgnoreCase("invalid")) {
+//            pages.searchPage.clickCheckbox(); // enable drop
+//            pages.searchPage.enterDrop(value); // invalid drop
+//        } else if (type.equalsIgnoreCase("empty")) {
+//            System.out.println("Skipping drop"); // skip
+//        } else {
+//            throw new RuntimeException("Invalid drop type"); // error
+//        }
+//    }
     @When("user enters {string} drop as {string}")
     public void enter_drop(String type, String value) {
 
+        pages.searchPage.clickCheckbox(); // enable drop field
+
         if (type.equalsIgnoreCase("valid")) {
-            pages.searchPage.clickCheckbox(); // enable drop field
-            pages.searchPage.enterDrop(value); // enter drop
-            pages.searchPage.selectDate(); // select dates
-        } else if (type.equalsIgnoreCase("invalid")) {
-            pages.searchPage.clickCheckbox(); // enable drop
-            pages.searchPage.enterDrop(value); // invalid drop
-        } else if (type.equalsIgnoreCase("empty")) {
-            System.out.println("Skipping drop"); // skip
-        } else {
-            throw new RuntimeException("Invalid drop type"); // error
+
+            pages.searchPage.enterDrop(value); // ✅ keep this
+            pages.searchPage.selectDate();
+
+        } 
+        else if (type.equalsIgnoreCase("invalid")) {
+
+            // 🔥 ONLY TYPE — NO DROPDOWN LOGIC
+            WebElement input = pages.searchPage.drop;
+
+            input.click();
+            input.clear();
+            input.sendKeys(value);
+
+            System.out.println("⚠️ Invalid drop entered");
+
+            // (optional) select date if needed
+            pages.searchPage.selectDate();
+        } 
+        else if (type.equalsIgnoreCase("empty")) {
+
+            System.out.println("Skipping drop");
+        } 
+        else {
+            throw new RuntimeException("Invalid drop type");
         }
     }
-
     // click search button
     @When("user clicks car rental search button")
     public void click_search() {
