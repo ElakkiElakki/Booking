@@ -1,4 +1,4 @@
-
+@Login
 Feature: Attraction Gallery Image Validation
 
   Scenario: AT08 Validate user can click attraction gallery image and select tickets
