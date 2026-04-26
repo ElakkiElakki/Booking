@@ -40,11 +40,28 @@ public class CR_ExtrasSteps {
 
         Assert.assertTrue(Math.abs(finalPrice - expected) < 5, "❌ Price mismatch");
     }
-
+    @When("user skips selecting extras")
+    public void user_skips_selecting_extras() {
+        System.out.println("⏭ Skipping extras selection");
+    }
     // click continue
     @When("user clicks continue from extras page")
     public void click_continue() {
         pages.extrasPage.clickContinue(); // click continue
+    }
+    @Then("user should proceed without selecting extras")
+    public void user_should_proceed_without_selecting_extras() {
+
+        String url = pages.extrasPage.getCurrentUrl();
+
+        System.out.println("After skipping extras URL: " + url);
+
+        Assert.assertTrue(
+            url.contains("package") || url.contains("checkout"),
+            "❌ Not navigated after skipping extras"
+        );
+
+        System.out.println("✅ Proceeded without extras");
     }
 
     // verify protection page

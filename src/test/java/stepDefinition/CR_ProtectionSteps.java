@@ -9,17 +9,15 @@ import base.pages;
 
 public class CR_ProtectionSteps {
 
-    // select protection
-    @When("user selects protection {string}")
-    public void select_protection(String type) {
+	@When("user clicks go to book with full protection")
+	public void click_with_protection() {
+	    pages.protectionPage.clickWithProtection();
+	}
 
-        if (type.equalsIgnoreCase("Full Protection")) {
-            pages.protectionPage.clickWithProtection(); // select full protection
-        } else {
-            pages.protectionPage.clickWithoutProtection(); // select without protection
-        }
-    }
-
+	@When("user clicks go to book without full protection")
+	public void click_without_protection() {
+	    pages.protectionPage.clickWithoutProtection();
+	}
     // verify booking page
     @Then("user should proceed to booking page")
     public void verify_navigation() {
