@@ -8,7 +8,7 @@ Feature: Attractions Search Validation
     Then attractions result should be "<expectedResult>"
 
     Examples:
-      | testCaseId | destinationType | destinationValue | expectedResult |
-      | AT01       | valid           | Brasov           | success        |
-      | AT02       | empty           |                  | validation     |
-      | AT03       | invalid         | @#$%             | validation     |
+| testCaseId | destinationType | destinationValue      | expectedResult |
+| AT01       | valid           | Brasov                | success        |
+| AT02       | empty           |                       | validation     |
+| AT03       | invalid         | @#$%                  | validation     |

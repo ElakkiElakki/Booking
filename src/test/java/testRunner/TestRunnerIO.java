@@ -41,6 +41,7 @@ import io.cucumber.testng.CucumberOptions;
 //			    "src/test/resources/features/ST_Filters.feature",
 //			    "src/test/resources/features/ST_HomeSearch.feature",
 //			    "src/test/resources/features/ST_HotelDetails.feature"
+			    
 			},
 		glue = {"stepDefinition"},
         plugin = {

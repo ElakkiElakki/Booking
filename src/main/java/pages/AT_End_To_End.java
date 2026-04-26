@@ -44,7 +44,7 @@ public class AT_End_To_End extends baseclass {
     );
     
     private final By plusSvgButton = By.xpath(
-    	    "(//*[name()='svg']/ancestor::button[1])[last()]"
+    		"//span[contains(normalize-space(),'2 adults, 1 child')]"
     	);
 
     private final By nextButton = By.xpath(
