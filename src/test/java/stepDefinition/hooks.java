@@ -371,14 +371,40 @@ public class hooks {
     
     
     //End
-    @AfterAll
-    public static void closeAfterAllScenarios() {
-        System.out.println("All scenarios completed.");
+    @After
+    public void afterScenario(io.cucumber.java.Scenario scenario) {
 
-        try {
-            AllFunctionalities.closeBrowser();
-        } catch (Exception e) {
-            System.out.println("Browser close failed: " + e.getMessage());
+        if (scenario.isFailed()) {
+
+            try {
+                WebDriver driver = AllFunctionalities.getDriver();
+
+                // Take screenshot
+                byte[] screenshot = ((org.openqa.selenium.TakesScreenshot) driver)
+                        .getScreenshotAs(org.openqa.selenium.OutputType.BYTES);
+
+                // Attach to Cucumber report
+                scenario.attach(screenshot, "image/png", "Failed Screenshot");
+
+                // 🔥 Save screenshot to file (IMPORTANT)
+                java.io.File src = ((org.openqa.selenium.TakesScreenshot) driver)
+                        .getScreenshotAs(org.openqa.selenium.OutputType.FILE);
+
+                String path = "target/screenshots/" + scenario.getName().replaceAll(" ", "_") + ".png";
+
+                java.io.File dest = new java.io.File(path);
+                dest.getParentFile().mkdirs();
+
+                org.apache.commons.io.FileUtils.copyFile(src, dest);
+
+                System.out.println("❌ Screenshot saved at: " + path);
+
+            } catch (Exception e) {
+                System.out.println("Screenshot capture failed: " + e.getMessage());
+            }
+
+        } else {
+            System.out.println("✅ Scenario PASSED: " + scenario.getName());
         }
     }
 }

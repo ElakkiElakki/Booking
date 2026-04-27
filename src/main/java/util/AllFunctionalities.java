@@ -182,14 +182,10 @@ public class AllFunctionalities {
         }
     }
 
-
-    
-    //stays-v added
     public WebElement waitForClickable(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
 }
-    //added for single login
     public void clearAndType(By locator, String value) {
         WebElement element = waitForVisible(locator);
         element.click();

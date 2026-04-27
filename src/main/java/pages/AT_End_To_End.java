@@ -354,12 +354,19 @@ public class AT_End_To_End extends baseclass {
 
         System.out.println("Clicked Next button.");
     }
-    public void fillDetailsAndClickPaymentButton() {
+    public void fillDetailsAndClickPaymentButton(String first, String last, String email, String phone) {
 
-        af.waitForVisible(By.name("firstName")).sendKeys("Elakki");
-        af.waitForVisible(By.name("lastName")).sendKeys("Kumar");
-        af.waitForVisible(By.name("email")).sendKeys("elakki@test.com");
-        af.waitForVisible(By.name("phone__number")).sendKeys("9876543210");
+        af.waitForVisible(firstNameField).clear();
+        af.waitForVisible(firstNameField).sendKeys(first);
+
+        af.waitForVisible(lastNameField).clear();
+        af.waitForVisible(lastNameField).sendKeys(last);
+
+        af.waitForVisible(emailField).clear();
+        af.waitForVisible(emailField).sendKeys(email);
+
+        af.waitForVisible(phoneField).clear();
+        af.waitForVisible(phoneField).sendKeys(phone);
 
         String beforeUrl = driver.getCurrentUrl();
 
@@ -381,9 +388,9 @@ public class AT_End_To_End extends baseclass {
         String afterUrl = driver.getCurrentUrl();
 
         if (afterUrl.equals(beforeUrl)) {
-            throw new RuntimeException("Payment details button was not clicked / page did not move.");
+            throw new RuntimeException("Payment details button was not clicked.");
         }
 
-        System.out.println("Clicked Payment details button. New URL: " + afterUrl);
+        System.out.println("Payment details clicked successfully.");
     }
 }

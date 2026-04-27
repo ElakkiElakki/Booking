@@ -10,6 +10,8 @@ public class AT_End_To_EndSteps {
     public static String currentTestCaseId;
     private AT_End_To_End galleryImagePage;
 
+    private static final String SHEET_NAME = "attractions";
+
     @Given("user starts gallery image test case {string} on attractions page")
     public void startGalleryImageTestCase(String testCaseId) {
         currentTestCaseId = testCaseId;
@@ -21,7 +23,8 @@ public class AT_End_To_EndSteps {
 
     @When("user searches gallery image destination {string}")
     public void searchDestinationForGalleryImage(String destination) {
-        galleryImagePage.searchDestinationForGalleryImage(destination);
+        String excelDestination = getExcelValue(currentTestCaseId, 1);
+        galleryImagePage.searchDestinationForGalleryImage(excelDestination);
     }
 
     @When("user opens first attraction details page for gallery image")
@@ -46,17 +49,50 @@ public class AT_End_To_EndSteps {
     public void user_clicks_select_tickets_button() {
         galleryImagePage.clickSelectTicketsButton();
     }
+
     @When("user clicks final select button")
     public void user_clicks_final_select_button() {
         galleryImagePage.clickFinalSelectButton();
     }
+
     @When("user clicks plus svg button and clicks next button")
     public void user_clicks_plus_svg_button_and_clicks_next_button() {
         galleryImagePage.clickPlusSvgButton();
-        galleryImagePage.clickNextButton(); 
+        galleryImagePage.clickNextButton();
     }
+
     @When("user fills all required details and clicks payment details button")
     public void user_fills_all_required_details_and_clicks_payment_details_button() {
-        galleryImagePage.fillDetailsAndClickPaymentButton();
+
+        String firstName = getExcelValue(currentTestCaseId, 2);
+        String lastName  = getExcelValue(currentTestCaseId, 3);
+        String email     = getExcelValue(currentTestCaseId, 4);
+        String phone     = getExcelValue(currentTestCaseId, 5);
+
+        System.out.println("Using Excel Data: "
+                + firstName + " | "
+                + lastName + " | "
+                + email + " | "
+                + phone);
+
+        galleryImagePage.fillDetailsAndClickPaymentButton(
+                firstName,
+                lastName,
+                email,
+                phone
+        );
+    }
+
+    private String getExcelValue(String testCaseId, int columnIndex) {
+
+        Object[][] data = AllFunctionalities.getData(SHEET_NAME);
+
+        for (Object[] row : data) {
+            if (row[0].toString().trim().equalsIgnoreCase(testCaseId)) {
+                return row[columnIndex] == null ? "" : row[columnIndex].toString().trim();
+            }
+        }
+
+        throw new RuntimeException("TestCaseId not found in Excel: " + testCaseId);
     }
 }

@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
+<testng-results ignored="0" total="10" passed="4" failed="6" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-25T16:47:06 IST" name="Default suite" finished-at="2026-04-25T16:49:57 IST" duration-ms="170543">
+  <suite started-at="2026-04-27T10:05:53 IST" name="Default suite" finished-at="2026-04-27T10:16:45 IST" duration-ms="651824">
     <groups>
       <group name="cucumber">
-        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@3943a2be]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
+        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
       </group> <!-- cucumber -->
     </groups>
-    <test started-at="2026-04-25T16:47:06 IST" name="Default test" finished-at="2026-04-25T16:49:57 IST" duration-ms="170543">
+    <test started-at="2026-04-27T10:05:53 IST" name="Default test" finished-at="2026-04-27T10:16:45 IST" duration-ms="651824">
       <class name="testRunner.TestRunnerIO">
-        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:testRunner.TestRunnerIO@3943a2be]" started-at="2026-04-25T16:47:06 IST" name="setUpClass" finished-at="2026-04-25T16:47:07 IST" duration-ms="508" status="PASS">
+        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:05:53 IST" name="setUpClass" finished-at="2026-04-27T10:05:54 IST" duration-ms="927" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@bbb6f0]]>
+                <![CDATA[org.testng.TestRunner@4ed096cc]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpClass -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@3943a2be]" started-at="2026-04-25T16:47:07 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-25T16:49:57 IST" duration-ms="169979" status="FAIL">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:05:54 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-27T10:08:15 IST" duration-ms="141485" status="FAIL">
           <params>
             <param index="0">
               <value>
@@ -34,35 +34,281 @@
               </value>
             </param>
           </params>
-          <exception class="org.openqa.selenium.TimeoutException">
+          <exception class="java.lang.RuntimeException">
             <message>
-              <![CDATA[Expected condition failed: waiting for visibility of element located by By.name: firstName (tried for 15 second(s) with 500 milliseconds interval)
-Build info: version: '4.21.0', revision: '79ed462ef4'
-System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '23.0.1'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 147.0.7727.103, chrome: {chromedriverVersion: 147.0.7727.117 (474cc805edd..., userDataDir: C:\Users\Hp\AppData\Local\T...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:56642}, goog:processID: 32492, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:56642/devtoo..., se:cdpVersion: 147.0.7727.103, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: f2cf52333bec6ffc01fc43072ff18a8f]]>
+              <![CDATA[TestCaseId not found in Excel: ATG08]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.name: firstName (tried for 15 second(s) with 500 milliseconds interval)
-Build info: version: '4.21.0', revision: '79ed462ef4'
-System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '23.0.1'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 147.0.7727.103, chrome: {chromedriverVersion: 147.0.7727.117 (474cc805edd..., userDataDir: C:\Users\Hp\AppData\Local\T...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:56642}, goog:processID: 32492, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:56642/devtoo..., se:cdpVersion: 147.0.7727.103, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: f2cf52333bec6ffc01fc43072ff18a8f
-at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-at util.AllFunctionalities.waitForVisible(AllFunctionalities.java:97)
-at pages.AT_End_To_End.fillDetailsAndClickPaymentButton(AT_End_To_End.java:358)
-at stepDefinition.AT_End_To_EndSteps.user_fills_all_required_details_and_clicks_payment_details_button(AT_End_To_EndSteps.java:60)
-at ✽.user fills all required details and clicks payment details button(file:///D:/SPRINT/Booking/src/test/resources/features/AT_End_To_End.feature:13)
+              <![CDATA[java.lang.RuntimeException: TestCaseId not found in Excel: ATG08
+at stepDefinition.AT_End_To_EndSteps.getExcelValue(AT_End_To_EndSteps.java:96)
+at stepDefinition.AT_End_To_EndSteps.searchDestinationForGalleryImage(AT_End_To_EndSteps.java:26)
+at ✽.user searches gallery image destination "Amsterdam"(file:///D:/SPRINT/Booking/src/test/resources/features/AT_End_To_End.feature:6)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.TimeoutException -->
+          </exception> <!-- java.lang.RuntimeException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:testRunner.TestRunnerIO@3943a2be]" started-at="2026-04-25T16:49:57 IST" name="tearDownClass" finished-at="2026-04-25T16:49:57 IST" duration-ms="14" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:08:15 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-27T10:09:08 IST" duration-ms="52063" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["AT08 Validate selecting attraction into My Favourites"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Attractions Favs Validation"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:09:08 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-27T10:10:37 IST" duration-ms="89521" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["ATF09 Validate deselecting attraction from My Favourites"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Attractions Favs Validation"]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[Deselected attraction is still displayed in Saved page: Amsterdam expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: Deselected attraction is still displayed in Saved page: Amsterdam expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:111)
+at org.testng.Assert.failNotEquals(Assert.java:1590)
+at org.testng.Assert.assertTrue(Assert.java:57)
+at stepDefinition.AT_FavSteps.selected_attraction_should_not_be_displayed_in_my_fav_page(AT_FavSteps.java:59)
+at ✽.selected attraction should not be displayed in my fav page(file:///D:/SPRINT/Booking/src/test/resources/features/AT_Fav.feature:20)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:10:37 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-27T10:11:38 IST" duration-ms="60613" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Validate category filter after search"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Attractions Filters Validation"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:11:38 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-27T10:13:23 IST" duration-ms="105090" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Validate multiple filters after search"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Attractions Filters Validation"]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[Filter not found: Nature & outdoor]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: Filter not found: Nature & outdoor
+at pages.AT_FiltersPage.findClickableFilter(AT_FiltersPage.java:155)
+at pages.AT_FiltersPage.selectCategoryFilter(AT_FiltersPage.java:71)
+at stepDefinition.AT_FiltersSteps.user_selects_category_filter(AT_FiltersSteps.java:40)
+at ✽.user selects category filter "Nature & outdoor"(file:///D:/SPRINT/Booking/src/test/resources/features/AT_Filters.feature:15)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:13:23 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-27T10:14:55 IST" duration-ms="91766" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Validate lowest price sorting after search"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Attractions Filters Validation"]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[Sort option not found: Lowest price]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: Sort option not found: Lowest price
+at pages.AT_FiltersPage.findClickableSort(AT_FiltersPage.java:200)
+at pages.AT_FiltersPage.clickLowestPriceSort(AT_FiltersPage.java:89)
+at stepDefinition.AT_FiltersSteps.user_clicks_lowest_price_sort_option(AT_FiltersSteps.java:55)
+at ✽.user clicks lowest price sort option(file:///D:/SPRINT/Booking/src/test/resources/features/AT_Filters.feature:24)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:14:55 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-27T10:15:36 IST" duration-ms="41008" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["AT07 Validate user can open attraction gallery page"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Attraction gallery Validation"]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[Attraction gallery was not visible after clicking See availability. expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: Attraction gallery was not visible after clicking See availability. expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:111)
+at org.testng.Assert.failNotEquals(Assert.java:1590)
+at org.testng.Assert.assertTrue(Assert.java:57)
+at stepDefinition.AT_GallerySteps.attraction_gallery_should_be_visible(AT_GallerySteps.java:36)
+at ✽.attraction gallery should be visible(file:///D:/SPRINT/Booking/src/test/resources/features/AT_Gallery.feature:7)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:15:36 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-27T10:15:57 IST" duration-ms="21022" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Validate attractions search with destination"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Attractions Search Validation"]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[Suggestion was not selected properly.]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: Suggestion was not selected properly.
+at pages.AT_SearchPage.selectSuggestionIfPresent(AT_SearchPage.java:77)
+at stepDefinition.AT_SearchSteps.user_enters_destination_as(AT_SearchSteps.java:28)
+at ✽.user enters "valid" destination as "Brasov"(file:///D:/SPRINT/Booking/src/test/resources/features/AT_Search.feature:6)
+Caused by: java.lang.RuntimeException: Destination suggestion was not selected properly.
+at pages.AT_SearchPage.selectSuggestionIfPresent(AT_SearchPage.java:72)
+at stepDefinition.AT_SearchSteps.user_enters_destination_as(AT_SearchSteps.java:28)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at io.cucumber.java.Invoker.doInvoke(Invoker.java:66)
+at io.cucumber.java.Invoker.invoke(Invoker.java:24)
+at io.cucumber.java.AbstractGlueDefinition.invokeMethod(AbstractGlueDefinition.java:47)
+at io.cucumber.java.JavaStepDefinition.execute(JavaStepDefinition.java:29)
+at io.cucumber.core.runner.CoreStepDefinition.execute(CoreStepDefinition.java:66)
+at io.cucumber.core.runner.PickleStepDefinitionMatch.runStep(PickleStepDefinitionMatch.java:63)
+at io.cucumber.core.runner.ExecutionMode$1.execute(ExecutionMode.java:10)
+at io.cucumber.core.runner.TestStep.executeStep(TestStep.java:81)
+at io.cucumber.core.runner.TestStep.run(TestStep.java:53)
+at io.cucumber.core.runner.PickleStepTestStep.run(PickleStepTestStep.java:51)
+at io.cucumber.core.runner.TestCase.run(TestCase.java:84)
+at io.cucumber.core.runner.Runner.runPickle(Runner.java:75)
+at io.cucumber.testng.TestNGCucumberRunner.lambda$runScenario$1(TestNGCucumberRunner.java:132)
+at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:136)
+at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
+at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:136)
+at io.cucumber.testng.TestNGCucumberRunner.runScenario(TestNGCucumberRunner.java:129)
+at io.cucumber.testng.AbstractTestNGCucumberTests.runScenario(AbstractTestNGCucumberTests.java:35)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+at org.testng.TestRunner.privateRun(TestRunner.java:741)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:15:57 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-27T10:16:20 IST" duration-ms="23812" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Validate attractions search with destination"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Attractions Search Validation"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:16:20 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-27T10:16:45 IST" duration-ms="24181" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Validate attractions search with destination"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Attractions Search Validation"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:testRunner.TestRunnerIO@40cb8df7]" started-at="2026-04-27T10:16:45 IST" name="tearDownClass" finished-at="2026-04-27T10:16:45 IST" duration-ms="279" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->

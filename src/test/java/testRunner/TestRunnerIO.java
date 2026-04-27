@@ -6,19 +6,19 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
 		features = {
 			    // Attractions (AT)
-//			    "src/test/resources/features/AT_End_To_End.feature",//failed
-//			    "src/test/resources/features/AT_Fav.feature",
-//			    "src/test/resources/features/AT_Filters.feature",
-//			    "src/test/resources/features/AT_Gallery.feature",
-//			    "src/test/resources/features/AT_Search.feature",
+			    "src/test/resources/features/AT_End_To_End.feature",
+			    "src/test/resources/features/AT_Fav.feature",
+			    "src/test/resources/features/AT_Filters.feature",
+			    "src/test/resources/features/AT_Gallery.feature",
+			    "src/test/resources/features/AT_Search.feature",
 
 			    // Car Rental (CR)
-			    "src/test/resources/features/CR_CarBooking.feature",
-			    "src/test/resources/features/CR_CarDetails.feature",
-			    "src/test/resources/features/CR_CarExtras.feature",
-			    "src/test/resources/features/CR_CarProtection.feature",//2 fails
-			    "src/test/resources/features/CR_CarResults.feature", //1 pass,2 fail
-			    "src/test/resources/features/CR_CarSearch.feature",//1 pass ,2 fail
+//			    "src/test/resources/features/CR_CarBooking.feature",
+//			    "src/test/resources/features/CR_CarDetails.feature",
+//			    "src/test/resources/features/CR_CarExtras.feature",
+//			    "src/test/resources/features/CR_CarProtection.feature",
+//			    "src/test/resources/features/CR_CarResults.feature", 
+//			    "src/test/resources/features/CR_CarSearch.feature",
 
 			    // Flights + Hotels (FH)
 //			    "src/test/resources/features/FH_EndToEnd.feature",
@@ -45,8 +45,10 @@ import io.cucumber.testng.CucumberOptions;
 			},
 		glue = {"stepDefinition"},
         plugin = {
-                "pretty",
-                "html:target/cucumber-report.html"
+        		"pretty",
+                "html:target/cucumber-report.html",
+                "json:target/cucumber.json",
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
         },
         monochrome = true
 )
